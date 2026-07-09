@@ -400,11 +400,7 @@ if (sketchPad) {
       [".line-face-right", 0.28, 0.36],
       [".line-body-left", 0.34, 0.48],
       [".line-body-right", 0.44, 0.58],
-      [".line-shoulder-left", 0.56, 0.68],
-      [".line-shoulder-right", 0.66, 0.78],
-      [".line-detail-left", 0.76, 0.88],
-      [".line-detail-right", 0.84, 0.96],
-      [".line-spark", 0.94, 1]
+      [".line-spark", 0.62, 1]
     ],
     pencil: ".sketch-pencil",
     pencilPoints: [
@@ -414,10 +410,6 @@ if (sketchPad) {
       [77, 28, 22],
       [28, 84, -24],
       [72, 84, 22],
-      [32, 69, -10],
-      [69, 69, 10],
-      [32, 87, 0],
-      [69, 87, 0],
       [50, 33, -8]
     ],
     pencilStops: [
@@ -426,10 +418,6 @@ if (sketchPad) {
       [0.36, 77, 28, 18],
       [0.48, 28, 84, -24],
       [0.58, 72, 84, 22],
-      [0.68, 32, 69, -10],
-      [0.78, 69, 69, 10],
-      [0.88, 32, 87, 0],
-      [0.96, 69, 87, 0],
       [1, 50, 33, -8]
     ],
     drawSpeed: 0.30,
