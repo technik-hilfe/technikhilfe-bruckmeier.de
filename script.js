@@ -394,20 +394,27 @@ if (sketchPad) {
   sketchConfigs.set(sketchPad, {
     activeClass: "is-sketching",
     lines: [
-      [".line-screen", 0.02, 0.34],
-      [".line-base", 0.18, 0.52],
-      [".line-hinge", 0.36, 0.62],
-      [".line-glow", 0.50, 0.78],
-      [".line-keyboard", 0.66, 1]
+      [".line-head-left", 0.02, 0.16],
+      [".line-head-right", 0.14, 0.28],
+      [".line-body-left", 0.26, 0.43],
+      [".line-body-right", 0.40, 0.57],
+      [".line-arm-left", 0.54, 0.70],
+      [".line-arm-right", 0.64, 0.80],
+      [".line-handshake", 0.76, 0.94],
+      [".line-spark", 0.90, 1]
     ],
     pencil: ".sketch-pencil",
     pencilPoints: [
-      [20, 24, -26],
-      [52, 22, -12],
-      [61, 50, 28],
-      [30, 66, 156],
-      [72, 76, 8],
-      [78, 77, 10]
+      [31, 22, -20],
+      [42, 23, -8],
+      [67, 22, 12],
+      [76, 24, 22],
+      [26, 73, -24],
+      [73, 73, 22],
+      [46, 68, -12],
+      [54, 68, 12],
+      [50, 80, 2],
+      [50, 50, -8]
     ],
     drawSpeed: 0.30,
     eraseSpeed: 0.74,
@@ -419,40 +426,35 @@ if (supportPack) {
   sketchConfigs.set(supportPack, {
     activeClass: "is-pack-sketching",
     lines: [
-      [".net-person-left", 0.02, 0.17],
-      [".net-person-right", 0.15, 0.30],
-      [".net-body-left", 0.28, 0.45],
-      [".net-body-right", 0.42, 0.58],
-      [".net-hand-left", 0.56, 0.72],
-      [".net-hand-right", 0.66, 0.82],
-      [".net-handshake", 0.78, 0.94],
-      [".net-spark-one", 0.90, 0.98],
-      [".net-spark-two", 0.94, 1]
+      [".net-monitor", 0.02, 0.20],
+      [".net-phone", 0.20, 0.36],
+      [".net-wifi-one", 0.34, 0.52],
+      [".net-wifi-two", 0.44, 0.60],
+      [".net-wifi-dot", 0.52, 0.66],
+      [".net-router", 0.58, 0.84],
+      [".net-router-details", 0.74, 1]
     ],
     pencil: ".network-pencil",
     pencilPoints: [
-      [31, 18, -18],
-      [39, 20, -8],
-      [63, 18, 10],
-      [70, 20, 18],
-      [32, 58, -24],
-      [69, 58, 22],
-      [47, 56, -12],
-      [55, 56, 12],
-      [50, 64, 2],
-      [50, 78, -4],
-      [66, 82, -8]
+      [23, 20, -22],
+      [35, 19, -10],
+      [72, 20, 14],
+      [51, 57, -26],
+      [50, 64, -14],
+      [50, 70, 4],
+      [24, 79, 10],
+      [74, 80, 8],
+      [67, 70, -18]
     ],
     pencilStops: [
-      [0.02, 31, 18, -18],
-      [0.17, 39, 20, -8],
-      [0.30, 63, 18, 10],
-      [0.45, 32, 58, -24],
-      [0.58, 69, 58, 22],
-      [0.72, 47, 56, -12],
-      [0.82, 55, 56, 12],
-      [0.94, 50, 64, 2],
-      [1, 66, 82, -8]
+      [0.02, 23, 20, -22],
+      [0.20, 35, 20, -10],
+      [0.36, 74, 20, 14],
+      [0.52, 51, 57, -26],
+      [0.60, 50, 64, -14],
+      [0.66, 50, 70, 4],
+      [0.84, 24, 79, 10],
+      [1, 67, 70, -18]
     ],
     drawSpeed: 0.20,
     eraseSpeed: 0.64,
@@ -597,20 +599,29 @@ function updateProgressSketches(now) {
   sketchFrame = 0;
 }
 
-function showStaticMobileSketches() {
+function startMobileSketches() {
   if (!isMobileCalm()) return;
 
   sketchConfigs.forEach((config, element) => {
-    const state = { progress: 1, target: 1 };
+    const current = sketchStates.get(element);
+    const state = {
+      progress: current?.progress && current.progress > 0.98 ? 1 : 0,
+      target: 1
+    };
     sketchStates.set(element, state);
-    renderSketch(element, 1, false);
+    renderSketch(element, state.progress, state.progress < 0.998);
     element.classList.add(config.activeClass);
     element.classList.remove("is-erasing");
   });
+
+  if (!sketchFrame) {
+    lastSketchTime = performance.now();
+    sketchFrame = window.requestAnimationFrame(updateProgressSketches);
+  }
 }
 
-showStaticMobileSketches();
-mobileCalmQuery.addEventListener("change", showStaticMobileSketches);
+startMobileSketches();
+mobileCalmQuery.addEventListener("change", startMobileSketches);
 
 function updateSketchPadHover() {
   if (reduceMotion || !canUseHoverMotion) return;

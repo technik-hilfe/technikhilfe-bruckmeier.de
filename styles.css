@@ -4959,3 +4959,56 @@ small,
     display: none !important;
   }
 }
+
+/* Final loader and mobile alignment polish. */
+.boot-shell {
+  justify-items: center;
+  text-align: center;
+}
+
+.boot-percent {
+  width: 100%;
+}
+
+.boot-percent span {
+  min-width: 0;
+  text-align: center;
+}
+
+.boot-bar {
+  display: block;
+  margin-inline: auto;
+}
+
+.boot-sketch {
+  display: none !important;
+}
+
+.handshake-sketch .line-spark {
+  stroke: var(--wine-bright);
+  stroke-width: 5;
+}
+
+@media (max-width: 640px) {
+  .site-header .nav-pills {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    justify-items: stretch;
+    gap: 0.08rem;
+  }
+
+  .site-header .nav-pills a {
+    width: 100%;
+    padding-inline: 0;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    white-space: nowrap;
+  }
+
+  .sketch-pad.is-erasing .sketch-line,
+  .support-pack.is-erasing .net-line {
+    animation: none !important;
+  }
+}
