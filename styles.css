@@ -4855,3 +4855,107 @@ small,
     margin-top: 0;
   }
 }
+
+/* Mobile follow-up: logo and nav in one row, keep only the useful sketch moments. */
+@media (max-width: 640px) {
+  .site-header {
+    height: 4.6rem;
+  }
+
+  .site-header .brand {
+    top: 0.65rem;
+    left: 0.75rem;
+  }
+
+  .site-header .nav-pills {
+    top: 0.65rem;
+    left: calc(50% + 2.35rem) !important;
+    width: calc(100vw - 5rem);
+    max-width: none;
+    min-height: 3.1rem;
+    padding: 0.3rem;
+  }
+
+  .site-header .nav-pills a {
+    min-height: 2.35rem;
+    padding: 0 0.42rem;
+    font-size: clamp(0.68rem, 3vw, 0.82rem);
+  }
+
+  .hero.section-band {
+    padding-top: 6rem;
+  }
+
+  .hero-text {
+    font-size: clamp(1.02rem, 4.2vw, 1.18rem);
+  }
+
+  .wide-motion {
+    display: none !important;
+  }
+
+  .scroll-showcase {
+    width: 100%;
+    min-height: auto !important;
+    margin-left: 0;
+    padding: 3rem 1rem 2rem;
+  }
+
+  .showcase-sticky {
+    position: relative;
+    display: grid;
+    width: 100%;
+    min-height: auto !important;
+    padding: 0;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .showcase-copy h2 {
+    max-width: 100%;
+    font-size: clamp(2.8rem, 13vw, 4.2rem);
+  }
+
+  .showcase-visual {
+    display: grid;
+    min-height: 22rem;
+    place-items: center;
+  }
+
+  .support-pack {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(20rem, 92vw);
+    height: 22rem;
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .support-pack .pack-screen,
+  .support-pack .pack-line,
+  .support-pack .pack-dot,
+  .support-pack .pack-cap {
+    opacity: 0.08;
+    filter: blur(2px);
+    transform: none;
+  }
+
+  .showcase-panels {
+    display: grid;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0.85rem;
+    transform: none !important;
+  }
+
+  .motion-panel {
+    min-height: 11rem;
+  }
+
+  .sketch-pad.is-erasing::after,
+  .support-pack.is-erasing::after {
+    display: none !important;
+  }
+}
