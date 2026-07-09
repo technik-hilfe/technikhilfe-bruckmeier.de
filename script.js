@@ -394,27 +394,45 @@ if (sketchPad) {
   sketchConfigs.set(sketchPad, {
     activeClass: "is-sketching",
     lines: [
-      [".line-head-left", 0.02, 0.16],
-      [".line-head-right", 0.14, 0.28],
-      [".line-body-left", 0.26, 0.43],
-      [".line-body-right", 0.40, 0.57],
-      [".line-arm-left", 0.54, 0.70],
-      [".line-arm-right", 0.64, 0.80],
-      [".line-handshake", 0.76, 0.94],
-      [".line-spark", 0.90, 1]
+      [".line-head-left", 0.02, 0.14],
+      [".line-face-left", 0.12, 0.20],
+      [".line-head-right", 0.18, 0.30],
+      [".line-face-right", 0.28, 0.36],
+      [".line-body-left", 0.34, 0.48],
+      [".line-body-right", 0.44, 0.58],
+      [".line-arm-left", 0.56, 0.70],
+      [".line-arm-right", 0.64, 0.78],
+      [".line-cuff-left", 0.72, 0.82],
+      [".line-cuff-right", 0.76, 0.86],
+      [".line-handshake", 0.82, 0.96],
+      [".line-fingers", 0.90, 0.99],
+      [".line-spark", 0.94, 1]
     ],
     pencil: ".sketch-pencil",
     pencilPoints: [
-      [31, 22, -20],
-      [42, 23, -8],
-      [67, 22, 12],
-      [76, 24, 22],
-      [26, 73, -24],
-      [73, 73, 22],
-      [46, 68, -12],
-      [54, 68, 12],
-      [50, 80, 2],
-      [50, 50, -8]
+      [30, 27, -20],
+      [42, 27, -6],
+      [65, 27, 12],
+      [77, 28, 22],
+      [28, 84, -24],
+      [72, 84, 22],
+      [43, 68, -12],
+      [57, 68, 12],
+      [50, 78, 2],
+      [52, 84, -4],
+      [50, 53, -8]
+    ],
+    pencilStops: [
+      [0.02, 30, 27, -20],
+      [0.20, 42, 28, -6],
+      [0.36, 77, 28, 18],
+      [0.48, 28, 84, -24],
+      [0.58, 72, 84, 22],
+      [0.70, 43, 68, -12],
+      [0.78, 57, 68, 12],
+      [0.86, 50, 72, 2],
+      [0.96, 52, 84, -4],
+      [1, 50, 53, -8]
     ],
     drawSpeed: 0.30,
     eraseSpeed: 0.74,
@@ -599,20 +617,21 @@ function updateProgressSketches(now) {
   sketchFrame = 0;
 }
 
-function startMobileSketches() {
+function startMobileSketch(element) {
   if (!isMobileCalm()) return;
+  const config = sketchConfigs.get(element);
+  if (!config) return;
 
-  sketchConfigs.forEach((config, element) => {
-    const current = sketchStates.get(element);
-    const state = {
-      progress: current?.progress && current.progress > 0.98 ? 1 : 0,
-      target: 1
-    };
-    sketchStates.set(element, state);
-    renderSketch(element, state.progress, state.progress < 0.998);
-    element.classList.add(config.activeClass);
-    element.classList.remove("is-erasing");
-  });
+  const current = sketchStates.get(element);
+  const state = {
+    progress: current?.progress && current.progress > 0.98 ? 1 : current?.progress || 0,
+    target: 1
+  };
+
+  sketchStates.set(element, state);
+  renderSketch(element, state.progress, state.progress < 0.998);
+  element.classList.add(config.activeClass);
+  element.classList.remove("is-erasing");
 
   if (!sketchFrame) {
     lastSketchTime = performance.now();
@@ -620,8 +639,33 @@ function startMobileSketches() {
   }
 }
 
-startMobileSketches();
-mobileCalmQuery.addEventListener("change", startMobileSketches);
+let mobileSketchObserver;
+
+function setupMobileSketchObserver() {
+  if (mobileSketchObserver) mobileSketchObserver.disconnect();
+  if (!isMobileCalm()) return;
+
+  mobileSketchObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        startMobileSketch(entry.target);
+        mobileSketchObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.28, rootMargin: "0px 0px -10% 0px" }
+  );
+
+  sketchConfigs.forEach((config, element) => {
+    const state = sketchStates.get(element);
+    if (state?.progress >= 0.998) return;
+    renderSketch(element, state?.progress || 0, false);
+    mobileSketchObserver.observe(element);
+  });
+}
+
+setupMobileSketchObserver();
+mobileCalmQuery.addEventListener("change", setupMobileSketchObserver);
 
 function updateSketchPadHover() {
   if (reduceMotion || !canUseHoverMotion) return;
