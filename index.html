@@ -1,1971 +1,608 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Technikhilfe Bruckmeier – Persönliche Hilfe bei Computer, Handy, WLAN & Technik</title>
-  <meta
-    name="description"
-    content="Persönliche Technikhilfe in Bad Füssing und Umgebung: Unterstützung bei Computer, Handy, WLAN, Fernseher und Technik im Alltag – verständlich erklärt, direkt vor Ort und ohne komplizierte Fachsprache."
-  />
-  <style>
-    :root {
-      --bg: #f4f8fd;
-      --bg-2: #eef5fb;
-      --surface: rgba(255,255,255,0.76);
-      --surface-strong: rgba(255,255,255,0.92);
-      --text: #0b1f3d;
-      --muted: #5a6f89;
-      --line: rgba(11,31,61,0.08);
-      --blue-dark: #08224a;
-      --blue: #1388ff;
-      --blue-soft: #d9efff;
-      --green: #59be34;
-      --green-soft: #e5f7df;
-      --shadow: 0 24px 60px rgba(8,34,74,0.12);
-      --shadow-soft: 0 12px 30px rgba(8,34,74,0.08);
-      --radius-xl: 36px;
-      --radius-lg: 26px;
-      --radius-md: 18px;
-      --max: 1240px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(19,136,255,0.12), transparent 28%),
-        radial-gradient(circle at 90% 12%, rgba(89,190,52,0.10), transparent 26%),
-        linear-gradient(180deg, #f9fcff 0%, var(--bg) 38%, var(--bg-2) 100%);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-    p, h1, h2, h3 { margin: 0; }
-
-    .container {
-      width: min(calc(100% - 36px), var(--max));
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 110px 0;
-      position: relative;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.96rem;
-      font-weight: 700;
-      color: var(--blue);
-      letter-spacing: 0.01em;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 36px;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--green), var(--blue));
-    }
-
-    h1 {
-      font-size: clamp(2.9rem, 6vw, 5.7rem);
-      line-height: 0.95;
-      letter-spacing: -0.055em;
-      font-weight: 760;
-      max-width: 10ch;
-    }
-
-    h2 {
-      font-size: clamp(2.1rem, 4vw, 3.7rem);
-      line-height: 1.12;
-      letter-spacing: -0.035em;
-      font-weight: 740;
-      max-width: 16ch;
-      text-wrap: balance;
-    }
-
-    h3 {
-      font-size: 1.24rem;
-      line-height: 1.34;
-      letter-spacing: -0.015em;
-      font-weight: 680;
-      text-wrap: balance;
-    }
-
-    .lead {
-      font-size: clamp(1.08rem, 2vw, 1.4rem);
-      color: var(--muted);
-      max-width: 700px;
-      line-height: 1.72;
-      margin-top: 24px;
-    }
-
-    .copy {
-      color: var(--muted);
-      font-size: 1.04rem;
-      line-height: 1.75;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 80;
-      backdrop-filter: blur(18px);
-      background: rgba(249,252,255,0.76);
-      border-bottom: 1px solid rgba(8,34,74,0.06);
-    }
-
-    .header-inner {
-      min-height: 92px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 26px;
-      position: relative;
-    }
-
-    .brand-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-      min-width: 0;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
-      overflow: hidden;
-      flex-shrink: 0;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255,255,255,0.6);
-      background: white;
-    }
-
-    .brand-mark img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .brand-title {
-      font-size: 1rem;
-      font-weight: 740;
-      letter-spacing: -0.03em;
-    }
-
-    .brand-subtitle {
-      font-size: 0.93rem;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .top-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .top-nav a {
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: 650;
-      color: var(--blue-dark);
-      background: rgba(255,255,255,0.86);
-      border: 1px solid rgba(8,34,74,0.06);
-      box-shadow: 0 8px 18px rgba(8,34,74,0.04);
-      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
-    }
-
-    .top-nav a:hover {
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.96);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-
-    .phone-link {
-      font-weight: 650;
-      color: var(--blue-dark);
-      padding: 11px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(8,34,74,0.07);
-      box-shadow: 0 8px 20px rgba(8,34,74,0.04);
-    }
-
-    .whatsapp-link {
-      font-weight: 650;
-      color: #0f5132;
-      padding: 11px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(89,190,52,0.20);
-      box-shadow: 0 8px 20px rgba(8,34,74,0.04);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .whatsapp-link svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 0 24px;
-      border-radius: 999px;
-      font-weight: 680;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-      box-shadow: 0 14px 30px rgba(8,34,74,0.20);
-    }
-
-    .btn-secondary {
-      color: var(--blue-dark);
-      background: rgba(255,255,255,0.94);
-      border: 1px solid rgba(8,34,74,0.08);
-      box-shadow: 0 12px 24px rgba(8,34,74,0.07);
-    }
-
-    .menu-toggle {
-      display: none;
-      width: 54px;
-      height: 54px;
-      border: 1px solid rgba(8,34,74,0.08);
-      background: rgba(255,255,255,0.92);
-      border-radius: 16px;
-      box-shadow: 0 10px 24px rgba(8,34,74,0.06);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      padding: 0;
-      flex-shrink: 0;
-    }
-
-    .menu-toggle-lines {
-      width: 22px;
-      height: 16px;
-      position: relative;
-      display: block;
-    }
-
-    .menu-toggle-lines span {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2.2px;
-      border-radius: 999px;
-      background: var(--blue-dark);
-      transition: transform 220ms ease, opacity 220ms ease, top 220ms ease;
-    }
-
-    .menu-toggle-lines span:nth-child(1) { top: 3px; }
-    .menu-toggle-lines span:nth-child(2) { top: 11px; }
-
-    .menu-toggle.is-open .menu-toggle-lines span:nth-child(1) {
-      top: 7px;
-      transform: rotate(45deg);
-    }
-
-    .menu-toggle.is-open .menu-toggle-lines span:nth-child(2) {
-      top: 7px;
-      transform: rotate(-45deg);
-    }
-
-    .mobile-menu {
-      display: none;
-    }
-
-    .hero {
-      padding: 72px 0 88px;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
-      align-items: center;
-      gap: 48px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 34px;
-    }
-
-    .hero-points {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 28px;
-      max-width: 760px;
-    }
-
-    .mini-card,
-    .card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.65);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .mini-card {
-      border-radius: 22px;
-      padding: 18px;
-    }
-
-    .mini-card strong {
-      display: block;
-      font-size: 0.98rem;
-      margin-bottom: 6px;
-    }
-
-    .mini-card span {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .hero-stage {
-      position: relative;
-      min-height: 660px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(10px);
-      pointer-events: none;
-    }
-
-    .orb.one {
-      width: 380px;
-      height: 380px;
-      top: 0;
-      right: 0;
-      background: radial-gradient(circle, rgba(19,136,255,0.22), rgba(19,136,255,0));
-    }
-
-    .orb.two {
-      width: 340px;
-      height: 340px;
-      bottom: 4%;
-      left: 2%;
-      background: radial-gradient(circle, rgba(89,190,52,0.18), rgba(89,190,52,0));
-    }
-
-    .hero-card {
-      position: relative;
-      width: min(100%, 620px);
-      padding: 28px;
-      border-radius: 40px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.72));
-      border: 1px solid rgba(255,255,255,0.78);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .hero-wave {
-      position: absolute;
-      inset: auto -8% -9% -8%;
-      height: 55%;
-      background:
-        radial-gradient(90% 70% at 18% 45%, rgba(19,136,255,0.18), transparent 55%),
-        radial-gradient(65% 65% at 82% 58%, rgba(89,190,52,0.16), transparent 55%),
-        linear-gradient(180deg, rgba(217,239,255,0.12), rgba(217,239,255,0.42));
-      border-top-left-radius: 46% 34%;
-      border-top-right-radius: 42% 30%;
-      pointer-events: none;
-    }
-
-    .hero-logo-panel {
-      position: relative;
-      z-index: 2;
-      height: 360px;
-      border-radius: 34px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.55);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.52);
-      background: linear-gradient(180deg, rgba(7,24,53,0.10), rgba(255,255,255,0.08));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-logo-panel img {
-      max-width: 82%;
-      max-height: 82%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    .hero-nav-panel {
-      position: relative;
-      z-index: 2;
-      margin-top: 20px;
-      padding: 24px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(8,34,74,0.06);
-      display: grid;
-      gap: 14px;
-    }
-
-    .hero-nav-panel strong {
-      font-size: 1.08rem;
-      line-height: 1.35;
-      letter-spacing: -0.015em;
-    }
-
-    .hero-nav-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .hero-nav-grid a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid rgba(8,34,74,0.06);
-      color: var(--blue-dark);
-      font-weight: 660;
-      box-shadow: 0 8px 22px rgba(8,34,74,0.04);
-    }
-
-    .hero-nav-grid a svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      opacity: 0.9;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 28px;
-      margin-bottom: 36px;
-    }
-
-    .section-head .copy {
-      max-width: 610px;
-    }
-
-    .trust-grid,
-    .services-grid,
-    .steps-grid,
-    .contact-grid,
-    .pricing-grid,
-    .answers-grid {
-      display: grid;
-      gap: 22px;
-    }
-
-    .trust-grid { grid-template-columns: repeat(3, 1fr); }
-    .services-grid { grid-template-columns: repeat(3, 1fr); }
-    .steps-grid { grid-template-columns: repeat(3, 1fr); margin-top: 28px; }
-    .contact-grid { grid-template-columns: 1.03fr 0.97fr; align-items: stretch; }
-    .pricing-grid { grid-template-columns: 1.05fr 0.95fr; align-items: stretch; }
-    .answers-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .card {
-      border-radius: var(--radius-lg);
-    }
-
-    .trust-card,
-    .service-card,
-    .step-card,
-    .contact-card,
-    .callback-card,
-    .pricing-card,
-    .faq-card,
-    .about-card {
-      padding: 30px;
-    }
-
-    .icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      margin-bottom: 18px;
-      background: linear-gradient(135deg, rgba(19,136,255,0.13), rgba(89,190,52,0.10));
-      color: var(--blue-dark);
-    }
-
-    .trust-card p,
-    .service-card p,
-    .faq-card p { margin-top: 12px; color: var(--muted); }
-
-    .service-card,
-    .step-card,
-    .faq-card,
-    .pricing-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card {
-      min-height: 240px;
-      padding: 32px 32px 34px;
-    }
-
-    .has-badge::after {
-      content: "";
-      position: absolute;
-      width: 104px;
-      height: 104px;
-      right: -18px;
-      bottom: -18px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(217,239,255,0.86), rgba(217,239,255,0.55));
-      pointer-events: none;
-    }
-
-    .card-icon-badge {
-      position: absolute;
-      right: 16px;
-      bottom: 16px;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      z-index: 2;
-      background: rgba(255,255,255,0.46);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(19,136,255,0.10);
-      box-shadow: 0 10px 24px rgba(8,34,74,0.08);
-      color: var(--blue-dark);
-    }
-
-    .card-icon-badge svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .steps-wrap {
-      padding: 34px;
-      border-radius: 40px;
-      background:
-        radial-gradient(circle at top right, rgba(217,239,255,0.80), transparent 28%),
-        radial-gradient(circle at bottom left, rgba(229,247,223,0.74), transparent 24%),
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,251,255,0.88));
-      border: 1px solid rgba(8,34,74,0.06);
-      box-shadow: var(--shadow);
-    }
-
-    .step-number {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      font-weight: 760;
-      color: white;
-      background: linear-gradient(135deg, var(--blue-dark), var(--green));
-      box-shadow: 0 12px 22px rgba(8,34,74,0.16);
-      position: relative;
-      z-index: 2;
-    }
-
-    .pricing-card strong.price-main {
-      display: block;
-      font-size: 2.2rem;
-      line-height: 1;
-      margin-top: 10px;
-      letter-spacing: -0.04em;
-    }
-
-    .pricing-note {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.65;
-      max-width: 48ch;
-    }
-
-    .pricing-list {
-      display: grid;
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .pricing-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(8,34,74,0.06);
-    }
-
-    .pricing-item .mini-icon,
-    .contact-item .mini-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(19,136,255,0.14), rgba(89,190,52,0.10));
-      color: var(--blue-dark);
-    }
-
-    .pricing-item strong,
-    .contact-item strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 0.98rem;
-    }
-
-    .pricing-item span,
-    .contact-item a,
-    .contact-item span {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.55;
-      word-break: break-word;
-    }
-
-   .about-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  align-items: stretch;
-}
-
-.about-card {
-  position: relative;
-  overflow: hidden;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.about-facts {
-  display: grid;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 18px;
-}
-
-    .about-photo {
-      width: 100%;
-      aspect-ratio: 4 / 3.1;
-      border-radius: 18px;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(19,136,255,0.10), rgba(89,190,52,0.10)),
-        rgba(255,255,255,0.72);
-      border: 1px solid rgba(8,34,74,0.06);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .about-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .about-role {
-      display: inline-block;
-      font-size: 0.88rem;
-      font-weight: 650;
-      color: var(--blue);
-      margin: 8px 0 14px;
-    }
-
-    .about-card .copy {
-      max-width: 100%;
-      font-size: 0.96rem;
-      line-height: 1.66;
-    }
-
-
-    .about-fact {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(8,34,74,0.06);
-      font-size: 0.92rem;
-      line-height: 1.45;
-    }
-
-    .fact-label {
-      font-weight: 700;
-      color: var(--blue-dark);
-    }
-
-    .fact-value {
-      color: var(--muted);
-    }
-
-    .contact-card,
-    .callback-card {
-      position: relative;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 18px;
-      margin-top: 28px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.74);
-      border: 1px solid rgba(8,34,74,0.06);
-    }
-
-    .callback-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(180deg, rgba(8,34,74,0.98), rgba(15,55,104,0.95));
-      color: white;
-      box-shadow: 0 26px 60px rgba(8,34,74,0.22);
-      overflow: hidden;
-    }
-
-    .callback-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -12% -16% auto;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(19,136,255,0.22), rgba(19,136,255,0));
-      pointer-events: none;
-    }
-
-    .callback-card p {
-      color: rgba(255,255,255,0.82);
-      margin-top: 16px;
-      max-width: 42ch;
-      line-height: 1.7;
-    }
-
-    .callback-card .btn-secondary {
-      margin-top: 26px;
-      align-self: flex-start;
-      background: rgba(255,255,255,0.96);
-      border: none;
-    }
-
-    .legal-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 26px;
-    }
-
-    .legal-links a {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(8,34,74,0.06);
-      color: var(--blue-dark);
-      font-weight: 640;
-      font-size: 0.95rem;
-    }
-
-    .legal-card {
-      margin-top: 28px;
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.74);
-      border: 1px solid rgba(8,34,74,0.06);
-    }
-
-    .legal-card p + p {
-      margin-top: 12px;
-    }
-
-    .footer {
-      padding: 34px 0 48px;
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      border-top: 1px solid rgba(8,34,74,0.08);
-      padding-top: 22px;
-      flex-wrap: wrap;
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(26px) scale(0.985);
-      transition:
-        opacity 700ms ease,
-        transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: opacity, transform;
-    }
-
-    .fade-up.is-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .delay-1 { transition-delay: 80ms; }
-    .delay-2 { transition-delay: 160ms; }
-    .delay-3 { transition-delay: 240ms; }
-
-    a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid rgba(19,136,255,0.42);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 1120px) {
-      .hero-grid,
-      .contact-grid,
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .trust-grid,
-      .services-grid,
-      .steps-grid,
-      .answers-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-stage { min-height: auto; }
-      .section { padding: 88px 0; }
-      .section-head {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .container { width: min(calc(100% - 28px), var(--max)); }
-
-      .site-header {
-        overflow: visible;
-      }
-
-      .header-inner {
-        min-height: 82px;
-        padding: 14px 0;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .brand-wrap {
-        gap: 0;
-        flex: 1 1 auto;
-        min-width: 0;
-      }
-
-      .brand-subtitle {
-        white-space: normal;
-      }
-
-      .top-nav,
-      .header-actions {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .mobile-menu {
-        display: grid;
-        gap: 14px;
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 0;
-        right: 0;
-        background: rgba(249,252,255,0.96);
-        backdrop-filter: blur(18px);
-        border: 1px solid rgba(8,34,74,0.06);
-        border-radius: 26px;
-        box-shadow: 0 20px 40px rgba(8,34,74,0.12);
-        padding: 18px;
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-        transition: opacity 220ms ease, transform 220ms ease;
-      }
-
-      .mobile-menu.is-open {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-
-      .mobile-menu-nav {
-        display: grid;
-        gap: 10px;
-      }
-
-      .mobile-menu-nav a,
-      .mobile-contact-link,
-      .mobile-menu .btn {
-        width: 100%;
-      }
-
-      .mobile-menu-nav a,
-      .mobile-contact-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 52px;
-        padding: 0 18px;
-        border-radius: 18px;
-        background: rgba(255,255,255,0.92);
-        border: 1px solid rgba(8,34,74,0.06);
-        color: var(--blue-dark);
-        font-weight: 650;
-        box-shadow: 0 8px 18px rgba(8,34,74,0.04);
-      }
-
-      .mobile-menu-actions {
-        display: grid;
-        gap: 10px;
-      }
-
-      .hero-actions {
-        width: 100%;
-        flex-direction: column;
-      }
-
-      .hero-actions .btn,
-      .btn {
-        width: 100%;
-      }
-
-      .hero-nav-grid,
-      .hero-points,
-      .trust-grid,
-      .services-grid,
-      .steps-grid,
-      .answers-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card,
-      .steps-wrap,
-      .contact-card,
-      .callback-card,
-      .pricing-card,
-      .faq-card,
-      .about-card {
-        padding: 24px;
-      }
-
-      .hero-logo-panel {
-        height: 280px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      h2,
-      h3 {
-        max-width: 100%;
-      }
-
-      .about-fact {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .fade-up { opacity: 1; transform: none; transition: none; }
-      .btn,
-      .top-nav a,
-      .mobile-menu,
-      .menu-toggle-lines span { transition: none; }
-    }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand-wrap">
-        <a class="brand" href="#top" aria-label="Zur Startseite">
-          <div class="brand-mark" aria-hidden="true">
-            <img src="logo.png" alt="Technik-Hilfe Logo" width="400" height="400" />
-          </div>
-          <div>
-            <div class="brand-title">Technikhilfe Bruckmeier</div>
-            <div class="brand-subtitle">Persönlich vor Ort.</div>
-          </div>
-        </a>
-
-        <nav class="top-nav" aria-label="Hauptnavigation">
-          <a href="#leistungen">Leistungen</a>
-          <a href="#preise">Preise</a>
-          <a href="#ablauf">Ablauf</a>
-          <a href="#ueber-uns">Über uns</a>
-          <a href="#kontakt">Kontakt</a>
-        </nav>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Technik Hilfe | IT, Web & Gerätehilfe in Bad Füssing</title>
+    <meta
+      name="description"
+      content="Moderner Vor-Ort- und Remote-Support für Laptop, Smartphone, Router, Websites und kleine Unternehmen."
+    />
+    <link rel="stylesheet" href="styles.css?v=vector-wine-logo" />
+  </head>
+  <body>
+    <div class="boot-loader" aria-hidden="true">
+      <div class="boot-shell">
+        <div class="boot-percent">
+          <span data-boot-percent>0</span><em>%</em>
+        </div>
+        <i class="boot-bar"></i>
+        <svg class="boot-sketch" viewBox="0 0 420 210" focusable="false">
+          <path d="M52 52 Q52 44 60 44 H158 Q166 44 166 52 V106 Q166 114 158 114 H60 Q52 114 52 106 Z M82 128 H136 M109 114 V128" />
+          <path d="M276 42 Q276 34 285 34 H336 Q345 34 345 42 V132 Q345 141 336 141 H285 Q276 141 276 132 Z M294 55 H327 M304 122 H317" />
+          <path d="M96 160 H308 Q320 160 320 172 V190 Q320 201 308 201 H96 Q84 201 84 190 V172 Q84 160 96 160 Z M112 181 H186 M228 181 H248 M270 181 H288" />
+          <path d="M154 150 C183 127 229 127 258 150 M176 167 C196 154 216 154 236 167" />
+        </svg>
       </div>
+    </div>
+    <div class="cursor-spotlight" aria-hidden="true"></div>
+    <canvas class="ambient-canvas" aria-hidden="true"></canvas>
+    <canvas class="cursor-pixel-canvas" aria-hidden="true"></canvas>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
-      <div class="header-actions">
-        <a class="phone-link" href="tel:xxx">Direkt anrufen</a>
-        <a class="whatsapp-link" href="https://wa.me/xxx" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp öffnen">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 11.8C20 16.1 16.4 19.6 12 19.6C10.7 19.6 9.5 19.3 8.4 18.7L4.5 19.8L5.7 16.1C5 14.9 4.6 13.4 4.6 11.8C4.6 7.5 8.1 4 12.4 4C16.5 4 20 7.5 20 11.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-            <path d="M9.5 9.2C9.3 9.2 9.1 9.3 9 9.5C8.8 9.8 8.5 10.2 8.5 10.8C8.5 11.5 9 12.3 9.1 12.4C9.2 12.6 10.3 14.2 11.9 14.9C13.2 15.4 13.5 15.3 13.9 15.2C14.2 15.1 14.9 14.5 15 14.1C15.2 13.8 15.2 13.5 15.1 13.4C15 13.3 14.8 13.2 14.5 13L13.8 12.7C13.6 12.6 13.4 12.6 13.3 12.8L13 13.2C12.9 13.3 12.7 13.3 12.6 13.2C12.2 13 11.2 12.4 10.5 11.2C10.4 11.1 10.5 11 10.6 10.9L10.9 10.5C11 10.4 11 10.2 10.9 10L10.6 9.3C10.5 9.1 10.3 9.2 10.1 9.2H9.5Z" fill="currentColor"/>
-          </svg>
-          WhatsApp
-        </a>
-        <a class="btn btn-primary" href="#kontakt">Jetzt Hilfe anfragen</a>
-      </div>
-
-      <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
-        <span class="menu-toggle-lines" aria-hidden="true">
-          <span></span>
-          <span></span>
+    <header class="site-header" data-theme="dark">
+      <a class="brand" href="#top" aria-label="Technik Hilfe Startseite">
+        <span class="brand-mark logo-mark" aria-hidden="true">
+          <img src="assets/technik-hilfe-logo-wine.svg" alt="" />
         </span>
-      </button>
+        <span class="brand-name">Technik Hilfe</span>
+      </a>
+      <nav class="nav-pills" aria-label="Hauptnavigation">
+        <a href="#kontakt">Kontakt</a>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#preise">Preise</a>
+        <a href="#ablauf">Ablauf</a>
+      </nav>
+    </header>
 
-      <div class="mobile-menu" id="mobileMenu">
-        <nav class="mobile-menu-nav" aria-label="Mobile Navigation">
-          <a href="#leistungen">Leistungen</a>
-          <a href="#preise">Preise</a>
-          <a href="#ablauf">Ablauf</a>
-          <a href="#ueber-uns">Über uns</a>
-          <a href="#kontakt">Kontakt</a>
-        </nav>
-
-        <div class="mobile-menu-actions">
-          <a class="mobile-contact-link" href="tel:xxx">Direkt anrufen</a>
-          <a class="mobile-contact-link" href="https://wa.me/xxx" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-          <a class="btn btn-primary" href="#kontakt">Jetzt Hilfe anfragen</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero section">
-      <div class="container hero-grid">
-        <div class="fade-up">
-          <div class="eyebrow">Technikhilfe in Bad Füssing</div>
-          <h1>Wenn Technik stört, helfen wir weiter.</h1>
-          <p class="lead">
-            Persönliche Unterstützung bei Computer, Handy, WLAN, Fernseher und Technik im Alltag.
+    <main id="top">
+      <section class="hero section-band">
+        <div class="edge-word edge-left" aria-hidden="true">SUPPORT</div>
+        <div class="edge-word edge-right" aria-hidden="true">WEB · IT · FIX</div>
+        <div class="hero-splash splash-a" aria-hidden="true"></div>
+        <div class="hero-splash splash-b" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <img class="hero-logo reveal" src="assets/technik-hilfe-logo-wine.svg" alt="Technik Hilfe Logo" />
+          <p class="eyebrow reveal">Technik Hilfe in Bad Füssing und Umgebung</p>
+          <h1 class="hero-title glitch reveal" data-text="Technik, die einfach läuft.">
+            Technik, die einfach läuft.
+          </h1>
+          <p class="hero-text reveal">
+            Laptop-Akku, Handy-Setup, Router, Cloud, Website oder akute IT-Probleme:
+            wir bringen private Geräte und kleine Unternehmen schnell wieder in den Flow.
           </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#kontakt">Kostenlos Kontakt aufnehmen</a>
-            <a class="btn btn-secondary" href="tel:xxx">Direkt anrufen</a>
-          </div>
-
-          <div class="hero-points">
-            <div class="mini-card fade-up delay-1">
-              <strong>Persönlich</strong>
-              <span>Direkter Kontakt mit echten Ansprechpartnern.</span>
-            </div>
-            <div class="mini-card fade-up delay-2">
-              <strong>Verständlich</strong>
-              <span>Klare Erklärung und Einschätzung.</span>
-            </div>
-            <div class="mini-card fade-up delay-3">
-              <strong>Vor Ort</strong>
-              <span>Hilfe direkt in Bad Füssing und Umgebung.</span>
-            </div>
+          <div class="hero-actions reveal">
+            <a class="btn primary magnetic" href="#kontakt">Kontakt</a>
+            <a class="btn ghost magnetic" href="#leistungen">Leistungen ansehen</a>
           </div>
         </div>
 
-        <div class="hero-stage fade-up delay-1">
-          <div class="orb one"></div>
-          <div class="orb two"></div>
-
-          <div class="hero-card">
-            <div class="hero-logo-panel" aria-hidden="true">
-              <img src="logo.png" alt="" width="700" height="700" />
-            </div>
-
-            <div class="hero-wave"></div>
-
-            <div class="hero-nav-panel">
-              <strong>Schnell zum richtigen Bereich</strong>
-              <div class="hero-nav-grid">
-                <a href="#kontakt">
-                  Kontakt
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a href="#ueber-uns">
-                  Über uns
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a href="#leistungen">
-                  Leistungen
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a href="#preise">
-                  Preise
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a href="#ablauf">
-                  Ablauf
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 12H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M13 6L19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
+        <div class="hero-stage reveal" aria-label="Animierte Technik-Illustration">
+          <div class="liquid-wave wave-top" aria-hidden="true"></div>
+          <div class="liquid-wave wave-bottom" aria-hidden="true"></div>
+          <div class="stage-grid" aria-hidden="true"></div>
+          <div class="orbit-ring ring-one" aria-hidden="true"></div>
+          <div class="orbit-ring ring-two" aria-hidden="true"></div>
+          <div class="orbit-ring ring-three" aria-hidden="true"></div>
+          <div class="signal-beam beam-a" aria-hidden="true"></div>
+          <div class="signal-beam beam-b" aria-hidden="true"></div>
+          <div class="device laptop" aria-hidden="true">
+            <div class="screen">
+              <span class="terminal-line"></span>
+              <span class="terminal-line short"></span>
+              <span class="pulse-dot"></span>
+              <div class="diagnostic-feed">
+                <span data-feed-line>scan /router...</span>
+                <span>akku.status: replaceable</span>
+                <span>website.deploy: ready</span>
               </div>
             </div>
+            <div class="keyboard"></div>
+          </div>
+          <div class="device phone" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="device router" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <div class="status-card card-a" aria-hidden="true">
+            <strong>Immer</strong>
+            <span>für Sie da</span>
+          </div>
+          <div class="status-card card-b" aria-hidden="true">
+            <strong>24h</strong>
+            <span>Antwortfenster</span>
+          </div>
+          <div class="status-card card-c" aria-hidden="true">
+            <strong>Live</strong>
+            <span>Diagnose aktiv</span>
+          </div>
+          <div class="floating-label label-a" aria-hidden="true">Router Setup</div>
+          <div class="floating-label label-b" aria-hidden="true">Akkuwechsel</div>
+          <div class="floating-label label-c" aria-hidden="true">Website</div>
+        </div>
+      </section>
+
+      <section class="marquee" aria-label="Servicebereiche">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <span>Notebook Reparatur</span>
+            <span>Router Einrichtung</span>
+            <span>Smartphone Setup</span>
+            <span>Website Erstellung</span>
+            <span>Remote Support</span>
+            <span>Daten & Backup</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span>Notebook Reparatur</span>
+            <span>Router Einrichtung</span>
+            <span>Smartphone Setup</span>
+            <span>Website Erstellung</span>
+            <span>Remote Support</span>
+            <span>Daten & Backup</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span>Notebook Reparatur</span>
+            <span>Router Einrichtung</span>
+            <span>Smartphone Setup</span>
+            <span>Website Erstellung</span>
+            <span>Remote Support</span>
+            <span>Daten & Backup</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span>Notebook Reparatur</span>
+            <span>Router Einrichtung</span>
+            <span>Smartphone Setup</span>
+            <span>Website Erstellung</span>
+            <span>Remote Support</span>
+            <span>Daten & Backup</span>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head fade-up">
-          <div>
-            <div class="eyebrow">Vertrauen & Klarheit</div>
-            <h2>Hilfe, die verständlich bleibt.</h2>
+      <section class="impact-strip section-band" aria-label="Kurzprofil">
+        <div class="impact-item reveal">
+          <strong>2 Ansprechpartner</strong>
+          <span>für Geräte, Netzwerk, Web und Support</span>
+        </div>
+        <div class="impact-item reveal">
+          <strong>Remote + Vor Ort</strong>
+          <span>flexibel, klar und ohne Warteschleife</span>
+        </div>
+        <div class="impact-item reveal">
+          <strong>Privat + Business</strong>
+          <span>vom Akkuwechsel bis zur Firmenwebsite</span>
+        </div>
+      </section>
+
+      <section class="wide-motion" aria-label="Full-Service Panorama">
+        <div class="wide-word" aria-hidden="true">ALLES LÄUFT</div>
+        <div class="wide-lane lane-one">
+          <span>Laptop Akku</span>
+          <span>WLAN</span>
+          <span>Website</span>
+          <span>Backup</span>
+          <span>Smartphone</span>
+        </div>
+        <div class="wide-lane lane-two">
+          <span>Microsoft 365</span>
+          <span>Router</span>
+          <span>Remote Hilfe</span>
+          <span>SSD Upgrade</span>
+          <span>Security</span>
+        </div>
+        <div class="wide-device wide-laptop" aria-hidden="true">
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+        <div class="wide-device wide-router" aria-hidden="true">
+          <i></i>
+          <i></i>
+        </div>
+        <div class="wide-device wide-monitor" aria-hidden="true">
+          <i></i>
+          <i></i>
+        </div>
+        <div class="wide-device wide-phone" aria-hidden="true">
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+      </section>
+
+      <section class="scroll-showcase" aria-label="Support in Bewegung">
+        <div class="showcase-sticky">
+          <div class="showcase-copy">
+            <p class="eyebrow reveal">Scroll durch den Service</p>
+            <h2 class="reveal">Von Problem zu Lösung, ohne Umwege.</h2>
           </div>
-      
-        </div>
-
-        <div class="trust-grid">
-          <article class="card trust-card fade-up delay-1">
-            <div class="icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 21C16.4 21 20 17.4 20 13V6L12 3L4 6V13C4 17.4 7.6 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <div class="showcase-visual" aria-hidden="true">
+            <div class="support-pack">
+              <span class="pack-cap"></span>
+              <span class="pack-screen"></span>
+              <span class="pack-line one"></span>
+              <span class="pack-line two"></span>
+              <span class="pack-dot"></span>
+              <svg class="network-sketch" viewBox="0 0 420 420" focusable="false">
+                <path class="net-line net-monitor" d="M78 78 Q78 68 88 68 H184 Q194 68 194 78 V138 Q194 148 184 148 H88 Q78 148 78 138 Z M113 165 H159 M136 148 V165" />
+                <path class="net-line net-phone" d="M287 72 Q287 62 298 62 H342 Q353 62 353 72 V159 Q353 170 342 170 H298 Q287 170 287 159 Z M306 83 H335 M313 150 H327" />
+                <path class="net-line net-wifi-one" d="M150 236 C181 209 239 209 270 236" />
+                <path class="net-line net-wifi-two" d="M171 259 C193 243 227 243 249 259" />
+                <path class="net-line net-wifi-dot" d="M209 276 h2" />
+                <path class="net-line net-router" d="M105 306 H315 Q326 306 326 318 V359 Q326 371 315 371 H105 Q94 371 94 359 V318 Q94 306 105 306 Z" />
+                <path class="net-line net-router-details" d="M122 340 H206 M238 340 H258 M278 340 H292 M143 306 V268 M277 306 V268" />
               </svg>
-            </div>
-            <h3>Persönlich vor Ort</h3>
-            <p>Direkte Unterstützung in Bad Füssing und Umgebung.</p>
-          </article>
-
-          <article class="card trust-card fade-up delay-2">
-            <div class="icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 20V10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M8 14L12 10L16 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M4 20H20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Geduldig erklärt</h3>
-            <p>Es wird nicht vorausgesetzt, dass Sie technisch fit sind.</p>
-          </article>
-
-          <article class="card trust-card fade-up delay-3">
-            <div class="icon" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 12H18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M6 8H14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M6 16H12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Ohne unnötige Umwege</h3>
-            <p>Klare Einschätzung, faire Kommunikation und Unterstützung auch dann, wenn es nur um eine kleine Frage oder ein überschaubares Problem geht.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="leistungen">
-      <div class="container">
-        <div class="section-head fade-up">
-          <div>
-            <div class="eyebrow">Leistungen</div>
-            <h2>Wobei wir konkret helfen</h2>
-          </div>
-          
-        </div>
-
-        <div class="services-grid">
-          <article class="card service-card has-badge fade-up delay-1">
-            <h3>Computer & Laptop Hilfe</h3>
-            <p>Wenn der Computer langsam ist, Programme nicht richtig laufen oder bei der Bedienung Unsicherheit besteht.</p>
-            <div class="card-icon-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="5" width="16" height="11" rx="2.2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M9 19H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </article>
-
-          <article class="card service-card has-badge fade-up delay-2">
-            <h3>Handy & Tablet einrichten</h3>
-            <p>Neue Geräte verständlich einrichten, wichtige Daten übertragen und sinnvolle Einstellungen gemeinsam festlegen.</p>
-            <div class="card-icon-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="7" y="3.5" width="10" height="17" rx="2.2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M11 17.5H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </article>
-
-          <article class="card service-card has-badge fade-up delay-3">
-            <h3>WLAN & Internet Probleme</h3>
-            <p>Wenn Verbindungen abbrechen, das WLAN schwach ist oder das Internet nicht zuverlässig läuft, suchen wir die Ursache sauber heraus.</p>
-            <div class="card-icon-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.5 9.5C8.8 5.8 15.2 5.8 19.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M7.5 12.5C10.1 10.3 13.9 10.3 16.5 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M10.4 15.4C11.3 14.7 12.7 14.7 13.6 15.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <circle cx="12" cy="18.1" r="1.2" fill="currentColor"/>
-              </svg>
-            </div>
-          </article>
-
-          <article class="card service-card has-badge fade-up delay-1">
-            <h3>Fernseher, Streaming & Anschlüsse</h3>
-            <p>Hilfe bei Fernsehern, Streaming-Diensten, Anschlüssen und typischen Problemen rund um Technik im Haushalt.</p>
-            <div class="card-icon-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3.5" y="5.5" width="17" height="10" rx="2.2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M9 19H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </article>
-
-          <article class="card service-card has-badge fade-up delay-2">
-            <h3>Kleine Reparaturen & Prüfung</h3>
-            <p>Kleinere Defekte werden geprüft und wenn möglich behoben</p>
-            <div class="card-icon-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="7" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M18 10H20V14H18" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-                <path d="M8 10V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M10 12H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </article>
-
-          <article class="card service-card has-badge fade-up delay-3">
-            <h3>Kaufberatung ohne Druck</h3>
-            <p>Welche Geräte wirklich passen, was sinnvoll ist und worauf man verzichten kann – ehrlich, ruhig und bedarfsgerecht. Für Büro/Gaming Setup.</p>
-            <div class="card-icon-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 7H18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M8 7V5.8C8 4.8 8.8 4 9.8 4H14.2C15.2 4 16 4.8 16 5.8V7" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M7 7L8.1 18.1C8.2 19.2 9.1 20 10.2 20H13.8C14.9 20 15.8 19.2 15.9 18.1L17 7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="preise">
-      <div class="container pricing-grid">
-        <div class="card pricing-card fade-up">
-          <div class="eyebrow">Preise</div>
-          <h2>Klare Kosten. Ohne unnötige Unsicherheit.</h2>
-          
-          <div class="pricing-list">
-            <div class="pricing-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 4H9L11 9L8.5 10.5C9.7 13 11.7 15 14.2 16.2L15.7 13.7L20.7 15.7V20C20.7 20.6 20.2 21 19.7 21C11.6 21 5 14.4 5 6.3C5 5.8 5.4 5.3 6 5.3L5 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Kontakt & Telefonat sind kostenlos</strong>
-                <span>Sie können sich jederzeit unverbindlich melden. Das Kontaktieren und ein kurzes Telefonat kosten nichts.</span>
-              </div>
-            </div>
-
-            <div class="pricing-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/>
-                  <path d="M12 8V12L14.8 14.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <strong>50 Euro pro Stunde</strong>
-                <span>Die Unterstützung vor Ort berechnen wir mit 50 Euro pro Stunde. So bleibt die Preislogik einfach und nachvollziehbar.</span>
-              </div>
-            </div>
-
-            <div class="pricing-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 16L6 9H16L19 16" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                  <path d="M7 16H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                  <circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/>
-                  <circle cx="15.5" cy="17.5" r="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Anfahrt je nach Entfernung</strong>
-                <span>Die Anfahrt richtet sich nach der Entfernung. Vorab wird offen besprochen, was ungefähr auf Sie zukommt.</span>
-              </div>
+              <span class="network-pencil">
+                <i></i>
+              </span>
             </div>
           </div>
-        </div>
-
-        <div class="card pricing-card fade-up delay-1">
-          <div class="eyebrow">Gut zu wissen</div>
-          <h3 style="font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.08; letter-spacing: -0.03em; max-width: 14ch;">
-            Faire Hilfe muss nicht kompliziert sein.
-          </h3>
-
-          <strong class="price-main">50 € / Stunde</strong>
-         
-
-          <div class="pricing-list">
-            <div class="pricing-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 5V19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                  <path d="M8.5 8.5C8.5 7.1 9.9 6 12 6C14.1 6 15.5 7.1 15.5 8.5C15.5 11.5 8.5 10 8.5 13.2C8.5 14.7 10 16 12 16C14 16 15.5 14.8 15.5 13.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Keine versteckten Einstiegskosten</strong>
-                <span>Erst melden, kurz sprechen, dann gemeinsam entscheiden.</span>
-              </div>
-            </div>
-
-            <div class="pricing-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 12.5L10 16.5L18 8.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Auch kleine Fragen sind willkommen</strong>
-                <span>Nicht jedes Anliegen ist ein großer Notfall. Genau deshalb soll der erste Schritt leicht und unkompliziert sein.</span>
-              </div>
-            </div>
+          <div class="showcase-panels">
+            <article class="motion-panel reveal" data-motion-card>
+              <span>01</span>
+              <h3>Fehler finden</h3>
+              <p>Wir prüfen Gerät, Netzwerk oder Website klar und nachvollziehbar.</p>
+            </article>
+            <article class="motion-panel reveal" data-motion-card>
+              <span>02</span>
+              <h3>Sauber lösen</h3>
+              <p>Remote oder vor Ort: keine Ratespiele, sondern konkrete Schritte.</p>
+            </article>
+            <article class="motion-panel reveal" data-motion-card>
+              <span>03</span>
+              <h3>Stabil machen</h3>
+              <p>Updates, Backup, Sicherheit und Dokumentation, damit es ruhig bleibt.</p>
+            </article>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="ablauf">
-      <div class="container">
-        <div class="steps-wrap fade-up">
-          <div class="section-head" style="margin-bottom: 0;">
+      <section id="leistungen" class="section services">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Was du bekommst</p>
+          <h2>Technikservice ohne Warteschleife.</h2>
+        </div>
+        <div class="sketch-pad" aria-hidden="true">
+          <svg class="laptop-sketch" viewBox="0 0 360 220" focusable="false">
+            <path class="sketch-line line-screen" d="M92 48 Q92 38 103 38 H257 Q268 38 268 48 V134 Q268 145 257 145 H103 Q92 145 92 134 Z" />
+            <path class="sketch-line line-base" d="M62 161 H298 L324 185 Q328 191 319 192 H41 Q32 191 36 185 Z" />
+            <path class="sketch-line line-hinge" d="M112 151 C148 156 212 156 248 151" />
+            <path class="sketch-line line-glow" d="M118 63 C151 53 207 54 242 64" />
+            <path class="sketch-line line-keyboard" d="M95 176 H265 M118 166 H242 M134 184 H226" />
+          </svg>
+          <span class="sketch-pencil">
+            <i></i>
+          </span>
+        </div>
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <span class="card-sheen" aria-hidden="true"></span>
+            <span class="icon" aria-hidden="true">01</span>
+            <h3>Geräte & Reparatur</h3>
+            <p>Laptop-Akku, SSD, RAM, Drucker, Smartphone, Tablet und saubere Fehlerdiagnose.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="card-sheen" aria-hidden="true"></span>
+            <span class="icon" aria-hidden="true">02</span>
+            <h3>Netzwerk & Zuhause</h3>
+            <p>Router, WLAN, Mesh, Smart-Home, E-Mail, Backups und sichere Grundeinstellungen.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="card-sheen" aria-hidden="true"></span>
+            <span class="icon" aria-hidden="true">03</span>
+            <h3>Ersteinrichtung & Betreuung</h3>
+            <p>Handys, Tablets, Router, Fernseher, Smart-Home, Rasenmäherroboter und vieles mehr.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="card-sheen" aria-hidden="true"></span>
+            <span class="icon" aria-hidden="true">04</span>
+            <h3>Websites</h3>
+            <p>Moderne Onepager, lokale Firmenwebsites, Landingpages, Pflege und technische Optimierung.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="ablauf" class="section process">
+        <div class="process-panel reveal">
+          <p class="eyebrow">So läuft es</p>
+          <h2>Kurz melden. Problem zeigen. Lösung bekommen.</h2>
+          <div class="timeline">
             <div>
-              <div class="eyebrow">So arbeiten wir</div>
-              <h2>Einfacher Ablauf ohne Hürden</h2>
+              <span>1</span>
+              <p>Du beschreibst kurz Gerät, Fehler oder Wunsch.</p>
             </div>
-           
-          </div>
-
-          <div class="steps-grid">
-            <article class="card step-card has-badge fade-up delay-1">
-              <div class="step-number">1</div>
-              <h3>Kontakt aufnehmen</h3>
-              <p class="copy">Per Telefon, WhatsApp oder E-Mail kurz melden und das Anliegen schildern. Der erste Kontakt ist kostenlos.</p>
-              <div class="card-icon-badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 4H9L11 9L8.5 10.5C9.7 13 11.7 15 14.2 16.2L15.7 13.7L20.7 15.7V20C20.7 20.6 20.2 21 19.7 21C11.6 21 5 14.4 5 6.3C5 5.8 5.4 5.3 6 5.3L5 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                </svg>
-              </div>
-            </article>
-
-            <article class="card step-card has-badge fade-up delay-2">
-              <div class="step-number">2</div>
-              <h3>Problem gemeinsam einordnen</h3>
-              <p class="copy">In Ruhe besprechen wir, was nicht funktioniert, was eingerichtet werden soll und wie der nächste Schritt sinnvoll aussieht.</p>
-              <div class="card-icon-badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 7L12 13L20 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  <rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-              </div>
-            </article>
-
-            <article class="card step-card has-badge fade-up delay-3">
-              <div class="step-number">3</div>
-              <h3>Vor Ort unterstützen</h3>
-              <p class="copy">Wir kommen vorbei, richten ein, prüfen oder lösen das Problem und erklären auf Wunsch alles Schritt für Schritt.</p>
-              <div class="card-icon-badge" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 16L6 9H16L19 16" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                  <path d="M7 16H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                  <circle cx="7.5" cy="17.5" r="1.5" fill="currentColor"/>
-                  <circle cx="15.5" cy="17.5" r="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head fade-up">
-          <div>
-            <div class="eyebrow">Fragen & Einwände</div>
-            <h2>Antworten, bevor Unsicherheit entsteht</h2>
-          </div>
-          
-        </div>
-
-        <div class="answers-grid">
-          <article class="card faq-card fade-up delay-1">
-            <h3>Ist mein Problem vielleicht zu klein?</h3>
-            <p>Nein. Auch kleine Fragen, Unsicherheiten oder alltägliche Technikprobleme sind berechtigte Anliegen und dürfen unkompliziert angesprochen werden.</p>
-          </article>
-
-          <article class="card faq-card fade-up delay-2">
-            <h3>Muss ich mich mit Technik auskennen?</h3>
-            <p>Nein. Es wird nichts vorausgesetzt. Alles wird so erklärt, dass man auch ohne technische Vorkenntnisse gut folgen kann.</p>
-          </article>
-
-          <article class="card faq-card fade-up delay-1">
-            <h3>Kommt wirklich jemand persönlich vorbei?</h3>
-            <p>Ja. Die Hilfe ist auf persönlichen Kontakt in Bad Füssing und Umgebung ausgelegt – direkt vor Ort und ohne unnötige Umwege.</p>
-          </article>
-
-          <article class="card faq-card fade-up delay-2">
-            <h3>Wie sieht es mit den Kosten aus?</h3>
-            <p>Der Kontakt und ein Telefonat sind kostenlos. Danach gilt eine einfache Preislogik: 50 Euro pro Stunde plus Anfahrt je nach Entfernung.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="ueber-uns">
-      <div class="container">
-        <div class="section-head fade-up">
-          <div>
-            <div class="eyebrow">Über uns</div>
-            <h2>Die Menschen dahinter</h2>
-          </div>
-          
-        </div>
-
-        <div class="about-grid">
-          <article class="card about-card fade-up delay-1">
-            <div class="about-photo">
-              <img src="moritz.jpg" alt="Moritz Bruckmeier" width="1200" height="900" loading="lazy" />
+            <div>
+              <span>2</span>
+              <p>Wir prüfen, ob Remote-Hilfe reicht oder ein Vor-Ort-Termin sinnvoll ist.</p>
             </div>
-
-            <h3>Moritz Bruckmeier</h3>
-            <div class="about-role">Technik-Hilfe / Geschäftsführer</div>
-           
-
-            <div class="about-facts">
-              <div class="about-fact">
-                <span class="fact-label">Karriere</span>
-                <span class="fact-value">Fachinformatiker Systemintegration</span>
-              </div>
-              <div class="about-fact">
-                <span class="fact-label">Alter</span>
-                <span class="fact-value">20</span>
-              </div>
-              <div class="about-fact">
-                <span class="fact-label">Interessen</span>
-                <span class="fact-value">Technik, Sport, Motorräder</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card about-card fade-up delay-2">
-            <div class="about-photo">
-              <img src="elias.jpg" alt="Elias Bruckmeier" width="1200" height="900" loading="lazy" />
-            </div>
-
-            <h3>Elias Bruckmeier</h3>
-            <div class="about-role">Technik-Hilfe / Geschäftsführer</div>
-           
-
-            <div class="about-facts">
-              <div class="about-fact">
-                <span class="fact-label">Karriere</span>
-                <span class="fact-value">Ausbildung zum Fachinformatiker Daten- und Prozessanalyse</span>
-              </div>
-              <div class="about-fact">
-                <span class="fact-label">Alter</span>
-                <span class="fact-value">18</span>
-              </div>
-              <div class="about-fact">
-                <span class="fact-label">Interessen</span>
-                <span class="fact-value">Technik, Fußball, Motorräder</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="kontakt">
-      <div class="container contact-grid">
-        <div class="card contact-card fade-up">
-          <div class="eyebrow">Kontakt</div>
-          <h2>Einfach melden. Der erste Schritt ist kostenlos.</h2>
-          <p class="copy" style="margin-top: 18px; max-width: 58ch;">
-            Ob kleine Frage, neue Einrichtung oder akutes Problem: Das Kontaktieren und ein Telefonat sind kostenlos. Danach besprechen wir offen, wie es weitergeht.
-          </p>
-         
-
-          <div class="contact-list">
-            <div class="contact-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 4H9L11 9L8.5 10.5C9.7 13 11.7 15 14.2 16.2L15.7 13.7L20.7 15.7V20C20.7 20.6 20.2 21 19.7 21C11.6 21 5 14.4 5 6.3C5 5.8 5.4 5.3 6 5.3L5 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Telefon</strong>
-                <a href="tel:xxx">xxx</a>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 11.8C20 16.1 16.4 19.6 12 19.6C10.7 19.6 9.5 19.3 8.4 18.7L4.5 19.8L5.7 16.1C5 14.9 4.6 13.4 4.6 11.8C4.6 7.5 8.1 4 12.4 4C16.5 4 20 7.5 20 11.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                  <path d="M9.5 9.2C9.3 9.2 9.1 9.3 9 9.5C8.8 9.8 8.5 10.2 8.5 10.8C8.5 11.5 9 12.3 9.1 12.4C9.2 12.6 10.3 14.2 11.9 14.9C13.2 15.4 13.5 15.3 13.9 15.2C14.2 15.1 14.9 14.5 15 14.1C15.2 13.8 15.2 13.5 15.1 13.4C15 13.3 14.8 13.2 14.5 13L13.8 12.7C13.6 12.6 13.4 12.6 13.3 12.8L13 13.2C12.9 13.3 12.7 13.3 12.6 13.2C12.2 13 11.2 12.4 10.5 11.2C10.4 11.1 10.5 11 10.6 10.9L10.9 10.5C11 10.4 11 10.2 10.9 10L10.6 9.3C10.5 9.1 10.3 9.2 10.1 9.2H9.5Z" fill="currentColor"/>
-                </svg>
-              </div>
-              <div>
-                <strong>WhatsApp</strong>
-                <a href="https://wa.me/xxx" target="_blank" rel="noopener noreferrer">Nachricht schreiben</a>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 7L12 13L20 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  <rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-              </div>
-              <div>
-                <strong>E-Mail</strong>
-                <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="mini-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/>
-                  <path d="M12 8V12L14.8 14.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Kosten im Überblick</strong>
-                <span>Erster Kontakt kostenlos, 50 Euro pro Stunde, Anfahrt je nach Entfernung.</span>
-              </div>
+            <div>
+              <span>3</span>
+              <p>Du bekommst eine klare Lösung, dokumentiert und verständlich erklärt.</p>
             </div>
           </div>
-
-          <div class="legal-links">
-            <a href="#impressum">Impressum</a>
-            <a href="#datenschutz">Datenschutz</a>
-          </div>
         </div>
-
-        <div class="card callback-card fade-up delay-1">
-          <div>
-            <div class="eyebrow" style="color: rgba(255,255,255,0.84);">Rückruf</div>
-            <h3 style="font-size: clamp(1.8rem, 3vw, 2.45rem); line-height: 1.08; letter-spacing: -0.03em; max-width: 16ch;">
-              Lieber erst kurz zurückgerufen werden?
-            </h3>
-            <p>
-              Auch das geht unkompliziert. Eine kurze Nachricht mit Ihrer Telefonnummer genügt, und wir melden uns schnellstmöglich zurück.
-            </p>
-           
-          </div>
-          <a class="btn btn-secondary" href="mailto:technikhilfe.bruckmeier85@gmail.com?subject=Bitte%20um%20R%C3%BCckruf">Rückruf anfordern</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="impressum" style="padding-top: 20px;">
-      <div class="container">
-        <div class="card legal-card fade-up">
-          <div class="eyebrow">Impressum - Angaben gemäß § 5 DDG</div>
-          <p class="copy"><strong>Technikhilfe Bruckmeier GbR</strong></p>
-          <p class="copy">Moritz Bruckmeier & Elias Bruckmeier</p>
-          <p class="copy">Hart 30</p>
-          <p class="copy">94072 Bad Füssing</p>
-          <p class="copy">Deutschland</p>
-          <p class="copy">Telefon: <a href="tel:xxx">xxx</a></p>
-          <p class="copy">E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a></p>
-          <p class="copy">Vertreten durch:</p>
-          <p class="copy">Moritz Bruckmeier und Elias Bruckmeier</p>
-           <p class="copy">
-        <strong>Umsatzsteuer:</strong><br>
-        Umsatzsteuer wird aufgrund der Kleinunternehmerregelung gemäß § 19 UStG nicht ausgewiesen.
-      </p>
- <p class="copy">
-        <strong>Haftung für Inhalte:</strong><br>
-        Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-        Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen,
-        die auf eine rechtswidrige Tätigkeit hinweisen.
-      </p>
-
-      <p class="copy">
-        <strong>Haftung für Links:</strong><br>
-        Unsere Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte wir keinen Einfluss haben.
-        Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.
-        Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
-      </p>
-
-      <p class="copy">
-        <strong>Urheberrecht:</strong><br>
-        Die durch uns erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht.
-        Beiträge Dritter werden als solche gekennzeichnet.
-        Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts
-        bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
-      </p>
-          
-          
+        <div class="quote-panel reveal">
+          <p>
+            "Technik soll sich anfühlen wie ein Werkzeug, nicht wie ein Rätsel."
           </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-   <section class="section" id="datenschutz" style="padding-top: 20px;">
-  <div class="container">
-    <div class="card legal-card fade-up">
-      <div class="eyebrow">Datenschutz</div>
+      <section id="preise" class="section prices">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Preise</p>
+          <h2>Klare Kosten. Ohne unnötige Unsicherheit.</h2>
+        </div>
+        <div class="price-grid">
+          <article class="price-card reveal">
+            <span>Kostenlos</span>
+            <strong>Erster Kontakt</strong>
+            <p>Anruf, WhatsApp oder E-Mail: kurz schildern, worum es geht. Das erste Einordnen kostet nichts.</p>
+          </article>
+          <article class="price-card featured reveal">
+            <span>50€</span>
+            <strong>pro Stunde</strong>
+            <p>Vor-Ort-Unterstützung, Einrichtung, Prüfung und Hilfe bei Ihren technischen Geräten.</p>
+          </article>
+          <article class="price-card reveal">
+            <span>Fair</span>
+            <strong>Anfahrt nach Entfernung</strong>
+            <p>Die Anfahrt besprechen wir vorher offen, damit es keine Überraschungen gibt.</p>
+          </article>
+        </div>
+      </section>
 
-      <p class="copy">
-        <strong>Datenschutzerklärung</strong>
-      </p>
+      <section id="kontakt" class="section contact">
+        <div class="contact-copy reveal">
+          <p class="eyebrow">Bereit, wenn Technik nervt</p>
+          <h2>Schreib uns, was nicht läuft.</h2>
+          <div class="contact-facts" aria-label="Standort und Preis">
+            <span>Bad Füssing</span>
+            <strong>50 EUR / Stunde</strong>
+          </div>
+        </div>
+        <div class="contact-stack">
+          <div class="contact-methods reveal" aria-label="Kontaktmöglichkeiten">
+            <a class="contact-method magnetic" href="tel:+491706691739">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M6.6 3.8 4.5 5.9c-.8.8-.7 3.6 2.6 7 3.4 3.4 6.2 3.5 7 2.7l2.1-2.1-3.1-3.1-1.7 1.7c-.4.4-1.7-.2-2.8-1.3-1.1-1.1-1.7-2.4-1.3-2.8L9 6.9 6.6 3.8Z" />
+                  <path d="M14.4 4.4c2.7.7 4.6 2.6 5.2 5.2" />
+                  <path d="M14.7 7.9c1.1.4 1.9 1.2 2.3 2.3" />
+                </svg>
+              </span>
+              <span>Anruf</span>
+              <strong>Direkt sprechen</strong>
+              <small>+49 170 6691739</small>
+            </a>
+            <a class="contact-method magnetic" href="https://wa.me/491706691739" target="_blank" rel="noopener noreferrer">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M5.1 18.9 6 15.5a7.4 7.4 0 1 1 2.6 2.5l-3.5.9Z" />
+                  <path d="M8.8 9.1c.3 2.7 2.4 4.7 5.1 5.2" />
+                  <path d="M9.1 9.1h1.6l.5 1.4-.9.7" />
+                  <path d="m13 13.8.7-.9 1.4.5v1.5" />
+                </svg>
+              </span>
+              <span>WhatsApp</span>
+              <strong>Schnell schreiben</strong>
+              <small>Antwort so bald wie möglich</small>
+            </a>
+            <a class="contact-method magnetic" href="mailto:technikhilfe.bruckmeier85@gmail.com">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M4.5 6.5h15v11h-15Z" />
+                  <path d="m5.2 7.2 6.8 5.2 6.8-5.2" />
+                  <path d="m8.7 11.4-3.5 4" />
+                  <path d="m15.3 11.4 3.5 4" />
+                </svg>
+              </span>
+              <span>E-Mail</span>
+              <strong>Problem schildern</strong>
+              <small>technikhilfe.bruckmeier85@gmail.com</small>
+            </a>
+          </div>
+          <div class="profile-grid reveal" aria-label="Ansprechpartner">
+            <article class="profile-card">
+              <span class="profile-avatar" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M12 12.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                  <path d="M4.7 20.2c.9-4 3.5-6 7.3-6s6.4 2 7.3 6" />
+                </svg>
+              </span>
+              <div>
+                <strong>Moritz Bruckmeier</strong>
+                <small>Geschäftsführer</small>
+              </div>
+            </article>
+            <article class="profile-card">
+              <span class="profile-avatar" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M12 12.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                  <path d="M4.7 20.2c.9-4 3.5-6 7.3-6s6.4 2 7.3 6" />
+                </svg>
+              </span>
+              <div>
+                <strong>Elias Bruckmeier</strong>
+                <small>Geschäftsführer</small>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-      <p class="copy">
-        Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer personenbezogenen Daten ist uns wichtig.
-        Nachfolgend informieren wir darüber, welche Daten beim Besuch unserer Website und bei der Kontaktaufnahme mit uns verarbeitet werden.
-      </p>
+      <section class="section legal-section" aria-label="Impressum und Datenschutz">
+        <div class="legal-grid">
+          <details id="impressum" class="legal-card reveal">
+            <summary>
+              <span>Impressum</span>
+              <strong>Angaben gemäß § 5 DDG</strong>
+            </summary>
+            <div class="legal-content">
+          <p>
+            Technikhilfe Bruckmeier GbR<br />
+            Moritz Bruckmeier & Elias Bruckmeier<br />
+            Hart 30<br />
+            94072 Bad Füssing<br />
+            Deutschland
+          </p>
+          <p>
+            Telefon: <a href="tel:+491706691739">+49 170 6691739</a><br />
+            E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
+          </p>
+          <p>Vertreten durch: Moritz Bruckmeier und Elias Bruckmeier</p>
+          <p>
+            Umsatzsteuer: Umsatzsteuer wird aufgrund der Kleinunternehmerregelung gemäß § 19 UStG nicht ausgewiesen.
+          </p>
+          <h3>Haftung für Inhalte</h3>
+          <p>
+            Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+            Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach
+            Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+          </p>
+          <h3>Haftung für Links</h3>
+          <p>
+            Unsere Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte wir keinen Einfluss haben.
+            Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten
+            ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+          </p>
+          <h3>Urheberrecht</h3>
+          <p>
+            Die durch uns erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Beiträge
+            Dritter werden als solche gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
+            Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors
+            bzw. Erstellers.
+          </p>
+            </div>
+          </details>
 
-      <p class="copy">
-        <strong>1. Verantwortlicher</strong><br>
-        Verantwortlich für die Datenverarbeitung auf dieser Website ist:
-      </p>
+          <details id="datenschutz" class="legal-card reveal">
+            <summary>
+              <span>Datenschutz</span>
+              <strong>Datenschutzerklärung</strong>
+            </summary>
+            <div class="legal-content">
+          <p>
+            Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer personenbezogenen Daten ist uns wichtig.
+            Nachfolgend informieren wir darüber, welche Daten beim Besuch unserer Website und bei der Kontaktaufnahme mit uns
+            verarbeitet werden.
+          </p>
+          <h3>1. Verantwortlicher</h3>
+          <p>
+            Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
+            Technikhilfe Bruckmeier GbR<br />
+            Moritz Bruckmeier & Elias Bruckmeier<br />
+            Hart 30<br />
+            94072 Bad Füssing<br />
+            Deutschland<br />
+            Telefon: <a href="tel:+491706691739">+49 170 6691739</a><br />
+            E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
+          </p>
+          <h3>2. Allgemeine Hinweise zur Datenverarbeitung</h3>
+          <p>
+            Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Website, zur Bearbeitung von
+            Anfragen oder zur Durchführung unserer Leistungen erforderlich ist. Personenbezogene Daten sind alle Informationen,
+            mit denen eine Person direkt oder indirekt identifiziert werden kann, zum Beispiel Name, Adresse, Telefonnummer,
+            E-Mail-Adresse oder IP-Adresse.
+          </p>
+          <h3>3. Besuch unserer Website</h3>
+          <p>
+            Unsere Website wird als statische Website über GitHub Pages bereitgestellt. Beim Aufruf der Website können technisch
+            notwendige Daten verarbeitet werden, damit die Website angezeigt werden kann. Dazu können insbesondere folgende Daten
+            gehören: IP-Adresse des verwendeten Endgeräts, Datum und Uhrzeit des Zugriffs, aufgerufene Seite oder Datei,
+            verwendeter Browser und Betriebssystem, Referrer-URL, sofern übermittelt.
+          </p>
+          <p>
+            Die Verarbeitung dieser Daten erfolgt, um die Website technisch bereitzustellen, die Sicherheit des Angebots zu
+            gewährleisten und eine fehlerfreie Darstellung zu ermöglichen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+            Unser berechtigtes Interesse liegt in der sicheren und zuverlässigen Bereitstellung unserer Website.
+          </p>
+          <p>
+            GitHub kann als Anbieter der technischen Infrastruktur ebenfalls personenbezogene Daten verarbeiten. Anbieter ist
+            GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Weitere Informationen zur Datenverarbeitung
+            durch GitHub finden Sie in der Datenschutzerklärung von GitHub.
+          </p>
+          <h3>4. Kontaktaufnahme per E-Mail</h3>
+          <p>
+            Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten, zum Beispiel Ihre
+            E-Mail-Adresse, Ihren Namen, den Inhalt Ihrer Nachricht und gegebenenfalls weitere von Ihnen angegebene Kontaktdaten.
+            Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfrage und zur weiteren Kommunikation mit Ihnen.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage mit einer gewünschten Leistung oder einem
+            Vertragsverhältnis zusammenhängt. In anderen Fällen ist Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes
+            Interesse liegt in der Beantwortung Ihrer Anfrage.
+          </p>
+          <h3>5. Kontaktaufnahme per Telefon</h3>
+          <p>
+            Wenn Sie uns telefonisch kontaktieren, können Ihre Telefonnummer, Ihr Name sowie die Inhalte des Gesprächs verarbeitet
+            werden, soweit dies zur Bearbeitung Ihres Anliegens erforderlich ist. Die Verarbeitung erfolgt zur Beantwortung Ihrer
+            Anfrage, zur Terminvereinbarung und gegebenenfalls zur Durchführung unserer Leistungen. Rechtsgrundlage ist Art. 6
+            Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+          <h3>6. Kontaktaufnahme per WhatsApp</h3>
+          <p>
+            Unsere Website enthält eine Möglichkeit, uns über WhatsApp zu kontaktieren. Wenn Sie WhatsApp nutzen, gelten zusätzlich
+            die Datenschutzbestimmungen von WhatsApp. Dabei können personenbezogene Daten wie Ihre Telefonnummer, Ihr Profilname,
+            Nachrichteninhalte, Kommunikationsdaten und technische Daten durch WhatsApp verarbeitet werden. Anbieter von WhatsApp
+            ist WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland. WhatsApp kann Daten auch
+            an Unternehmen der Meta-Gruppe und in Länder außerhalb der Europäischen Union übermitteln. Bitte nutzen Sie WhatsApp
+            nur, wenn Sie mit der dortigen Datenverarbeitung einverstanden sind. Wir verwenden die über WhatsApp erhaltenen Daten
+            ausschließlich zur Bearbeitung Ihrer Anfrage und zur Kommunikation mit Ihnen.
+          </p>
+          <h3>7. Keine Kontaktformulare</h3>
+          <p>
+            Auf unserer Website verwenden wir derzeit kein Kontaktformular. Eine Kontaktaufnahme erfolgt ausschließlich über die
+            angegebenen Kontaktmöglichkeiten wie Telefon, E-Mail oder WhatsApp.
+          </p>
+          <h3>8. Keine Cookies und kein Tracking</h3>
+          <p>
+            Unsere Website verwendet derzeit keine eigenen Cookies, keine Analyse-Tools wie Google Analytics, keine Werbe- oder
+            Marketing-Tracker und keine Social-Media-Plugins. Es werden von uns keine Nutzerprofile erstellt.
+          </p>
+          <h3>9. Keine eingebetteten externen Inhalte</h3>
+          <p>
+            Auf unserer Website verwenden wir derzeit keine eingebetteten Google Maps, YouTube-Videos oder vergleichbare externen
+            Inhalte. Die auf der Website dargestellten Bilder und Grafiken werden lokal eingebunden.
+          </p>
+          <h3>10. Speicherdauer</h3>
+          <p>
+            Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist. Daten aus Anfragen
+            speichern wir so lange, wie dies zur Bearbeitung der Anfrage, zur Durchführung unserer Leistungen oder aufgrund
+            gesetzlicher Aufbewahrungspflichten erforderlich ist. Geschäfts- und steuerrelevante Unterlagen, zum Beispiel Rechnungen,
+            können aufgrund gesetzlicher Aufbewahrungspflichten länger gespeichert werden.
+          </p>
+          <h3>11. Weitergabe von Daten</h3>
+          <p>
+            Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nicht ohne rechtliche Grundlage. Eine Weitergabe kann
+            erforderlich sein, wenn dies zur Vertragserfüllung, zur Erfüllung gesetzlicher Pflichten oder zur technischen
+            Bereitstellung der Website notwendig ist.
+          </p>
+          <h3>12. Ihre Rechte</h3>
+          <p>
+            Sie haben im Rahmen der gesetzlichen Voraussetzungen folgende Rechte: Recht auf Auskunft über die bei uns gespeicherten
+            personenbezogenen Daten, Recht auf Berichtigung unrichtiger Daten, Recht auf Löschung Ihrer Daten, Recht auf
+            Einschränkung der Verarbeitung, Recht auf Datenübertragbarkeit, Recht auf Widerspruch gegen bestimmte Verarbeitungen,
+            Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft. Zur Ausübung Ihrer Rechte können Sie sich
+            jederzeit an uns wenden: technikhilfe.bruckmeier85@gmail.com
+          </p>
+          <h3>13. Beschwerderecht bei einer Aufsichtsbehörde</h3>
+          <p>
+            Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt, haben
+            Sie das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Zuständig ist in Bayern insbesondere:
+            Bayerisches Landesamt für Datenschutzaufsicht, Promenade 18, 91522 Ansbach, Deutschland.
+          </p>
+          <h3>14. Änderungen dieser Datenschutzerklärung</h3>
+          <p>
+            Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich unsere Website, unsere Kontaktmöglichkeiten
+            oder die rechtlichen Anforderungen ändern. Stand: Mai 2026
+          </p>
+            </div>
+          </details>
+        </div>
+      </section>
+    </main>
 
-      <p class="copy">
-        <strong>Technikhilfe Bruckmeier GbR</strong><br>
-        Moritz Bruckmeier & Elias Bruckmeier<br>
-        Hart 30<br>
-        94072 Bad Füssing<br>
-        Deutschland<br>
-        Telefon: <a href="tel:xxx">xxx</a><br>
-        E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
-      </p>
+    <footer class="site-footer">
+      <span>Technik Hilfe</span>
+      <span>IT Hilfe, Web & Geräte-Service in Bad Füssing</span>
+      <a href="#impressum">Impressum</a>
+      <a href="#datenschutz">Datenschutz</a>
+    </footer>
 
-      <p class="copy">
-        <strong>2. Allgemeine Hinweise zur Datenverarbeitung</strong><br>
-        Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Website, zur Bearbeitung von Anfragen
-        oder zur Durchführung unserer Leistungen erforderlich ist. Personenbezogene Daten sind alle Informationen, mit denen eine Person
-        direkt oder indirekt identifiziert werden kann, zum Beispiel Name, Adresse, Telefonnummer, E-Mail-Adresse oder IP-Adresse.
-      </p>
-
-      <p class="copy">
-        <strong>3. Besuch unserer Website</strong><br>
-        Unsere Website wird als statische Website über GitHub Pages bereitgestellt. Beim Aufruf der Website können technisch notwendige Daten verarbeitet werden,
-        damit die Website angezeigt werden kann. Dazu können insbesondere folgende Daten gehören:
-      </p>
-
-      <p class="copy">
-        IP-Adresse des verwendeten Endgeräts,<br>
-        Datum und Uhrzeit des Zugriffs,<br>
-        aufgerufene Seite oder Datei,<br>
-        verwendeter Browser und Betriebssystem,<br>
-        Referrer-URL, sofern übermittelt.
-      </p>
-
-      <p class="copy">
-        Die Verarbeitung dieser Daten erfolgt, um die Website technisch bereitzustellen, die Sicherheit des Angebots zu gewährleisten
-        und eine fehlerfreie Darstellung zu ermöglichen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt
-        in der sicheren und zuverlässigen Bereitstellung unserer Website.
-      </p>
-
-      <p class="copy">
-        GitHub kann als Anbieter der technischen Infrastruktur ebenfalls personenbezogene Daten verarbeiten.
-        Anbieter ist GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.
-        Weitere Informationen zur Datenverarbeitung durch GitHub finden Sie in der Datenschutzerklärung von GitHub.
-      </p>
-
-      <p class="copy">
-        <strong>4. Kontaktaufnahme per E-Mail</strong><br>
-        Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten, zum Beispiel Ihre E-Mail-Adresse,
-        Ihren Namen, den Inhalt Ihrer Nachricht und gegebenenfalls weitere von Ihnen angegebene Kontaktdaten.
-      </p>
-
-      <p class="copy">
-        Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfrage und zur weiteren Kommunikation mit Ihnen.
-        Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage mit einer gewünschten Leistung oder einem Vertragsverhältnis zusammenhängt.
-        In anderen Fällen ist Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Beantwortung Ihrer Anfrage.
-      </p>
-
-      <p class="copy">
-        <strong>5. Kontaktaufnahme per Telefon</strong><br>
-        Wenn Sie uns telefonisch kontaktieren, können Ihre Telefonnummer, Ihr Name sowie die Inhalte des Gesprächs verarbeitet werden,
-        soweit dies zur Bearbeitung Ihres Anliegens erforderlich ist.
-      </p>
-
-      <p class="copy">
-        Die Verarbeitung erfolgt zur Beantwortung Ihrer Anfrage, zur Terminvereinbarung und gegebenenfalls zur Durchführung unserer Leistungen.
-        Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO.
-      </p>
-
-      <p class="copy">
-        <strong>6. Kontaktaufnahme per WhatsApp</strong><br>
-        Unsere Website enthält eine Möglichkeit, uns über WhatsApp zu kontaktieren. Wenn Sie WhatsApp nutzen, gelten zusätzlich die Datenschutzbestimmungen
-        von WhatsApp. Dabei können personenbezogene Daten wie Ihre Telefonnummer, Ihr Profilname, Nachrichteninhalte, Kommunikationsdaten und technische Daten
-        durch WhatsApp verarbeitet werden.
-      </p>
-
-      <p class="copy">
-        Anbieter von WhatsApp ist WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland.
-        WhatsApp kann Daten auch an Unternehmen der Meta-Gruppe und in Länder außerhalb der Europäischen Union übermitteln.
-        Bitte nutzen Sie WhatsApp nur, wenn Sie mit der dortigen Datenverarbeitung einverstanden sind.
-      </p>
-
-      <p class="copy">
-        Wir verwenden die über WhatsApp erhaltenen Daten ausschließlich zur Bearbeitung Ihrer Anfrage und zur Kommunikation mit Ihnen.
-        Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage mit einer gewünschten Leistung oder einem Vertragsverhältnis zusammenhängt.
-        In anderen Fällen ist Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO.
-      </p>
-
-      <p class="copy">
-        <strong>7. Keine Kontaktformulare</strong><br>
-        Auf unserer Website verwenden wir derzeit kein Kontaktformular. Eine Kontaktaufnahme erfolgt ausschließlich über die angegebenen Kontaktmöglichkeiten
-        wie Telefon, E-Mail oder WhatsApp.
-      </p>
-
-      <p class="copy">
-        <strong>8. Keine Cookies und kein Tracking</strong><br>
-        Unsere Website verwendet derzeit keine eigenen Cookies, keine Analyse-Tools wie Google Analytics, keine Werbe- oder Marketing-Tracker
-        und keine Social-Media-Plugins. Es werden von uns keine Nutzerprofile erstellt.
-      </p>
-
-      <p class="copy">
-        <strong>9. Keine eingebetteten externen Inhalte</strong><br>
-        Auf unserer Website verwenden wir derzeit keine eingebetteten Google Maps, YouTube-Videos oder vergleichbare externen Inhalte.
-        Die auf der Website dargestellten Bilder und Grafiken werden lokal eingebunden.
-      </p>
-
-      <p class="copy">
-        <strong>10. Speicherdauer</strong><br>
-        Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist.
-        Daten aus Anfragen speichern wir so lange, wie dies zur Bearbeitung der Anfrage, zur Durchführung unserer Leistungen oder aufgrund gesetzlicher
-        Aufbewahrungspflichten erforderlich ist.
-      </p>
-
-      <p class="copy">
-        Geschäfts- und steuerrelevante Unterlagen, zum Beispiel Rechnungen, können aufgrund gesetzlicher Aufbewahrungspflichten länger gespeichert werden.
-      </p>
-
-      <p class="copy">
-        <strong>11. Weitergabe von Daten</strong><br>
-        Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nicht ohne rechtliche Grundlage.
-        Eine Weitergabe kann erforderlich sein, wenn dies zur Vertragserfüllung, zur Erfüllung gesetzlicher Pflichten oder zur technischen Bereitstellung
-        der Website notwendig ist.
-      </p>
-
-      <p class="copy">
-        <strong>12. Ihre Rechte</strong><br>
-        Sie haben im Rahmen der gesetzlichen Voraussetzungen folgende Rechte:
-      </p>
-
-      <p class="copy">
-        Recht auf Auskunft über die bei uns gespeicherten personenbezogenen Daten,<br>
-        Recht auf Berichtigung unrichtiger Daten,<br>
-        Recht auf Löschung Ihrer Daten,<br>
-        Recht auf Einschränkung der Verarbeitung,<br>
-        Recht auf Datenübertragbarkeit,<br>
-        Recht auf Widerspruch gegen bestimmte Verarbeitungen,<br>
-        Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft.
-      </p>
-
-      <p class="copy">
-        Zur Ausübung Ihrer Rechte können Sie sich jederzeit an uns wenden:
-        <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
-      </p>
-
-      <p class="copy">
-        <strong>13. Beschwerderecht bei einer Aufsichtsbehörde</strong><br>
-        Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt,
-        haben Sie das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.
-      </p>
-
-      <p class="copy">
-        Zuständig ist in Bayern insbesondere:<br>
-        Bayerisches Landesamt für Datenschutzaufsicht<br>
-        Promenade 18<br>
-        91522 Ansbach<br>
-        Deutschland
-      </p>
-
-      <p class="copy">
-        <strong>14. Änderungen dieser Datenschutzerklärung</strong><br>
-        Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich unsere Website, unsere Kontaktmöglichkeiten oder die rechtlichen Anforderungen ändern.
-      </p>
-
-      <p class="copy">
-        Stand: Mai 2026
-      </p>
-    </div>
-  </div>
-</section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>Technik-Hilfe Bad Füssing</span>
-      <span>Persönliche Unterstützung für Computer, Handy, WLAN und Technik im Alltag</span>
-      <span><a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a></span>
-    </div>
-  </footer>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.14,
-      rootMargin: '0px 0px -36px 0px'
-    });
-
-    document.querySelectorAll('.fade-up').forEach((element) => {
-      observer.observe(element);
-    });
-
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('is-open');
-      menuToggle.classList.remove('is-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.setAttribute('aria-label', 'Menü öffnen');
-    }
-
-    function openMobileMenu() {
-      mobileMenu.classList.add('is-open');
-      menuToggle.classList.add('is-open');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      menuToggle.setAttribute('aria-label', 'Menü schließen');
-    }
-
-    menuToggle.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.contains('is-open');
-      if (isOpen) {
-        closeMobileMenu();
-      } else {
-        openMobileMenu();
-      }
-    });
-
-    mobileMenuLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        closeMobileMenu();
-      });
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 760) {
-        closeMobileMenu();
-      }
-    });
-  </script>
-</body>
+    <script src="script.js?v=no-cursor-trail"></script>
+  </body>
 </html>
