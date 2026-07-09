@@ -4,6 +4,9 @@ const cursorCanvas = document.querySelector(".cursor-pixel-canvas");
 const cursorCtx = cursorCanvas.getContext("2d");
 const enableCursorTrail = false;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mobileCalmQuery = window.matchMedia("(max-width: 900px), (hover: none), (pointer: coarse)");
+const isMobileCalm = () => mobileCalmQuery.matches || window.innerWidth <= 900;
+const canUseHoverMotion = window.matchMedia("(hover: hover) and (pointer: fine)").matches && window.innerWidth > 900;
 document.body.classList.add("is-loading");
 let width = 0;
 let height = 0;
@@ -16,6 +19,12 @@ let hasPointer = false;
 const root = document.documentElement;
 const showcase = document.querySelector(".scroll-showcase");
 const showcaseSticky = document.querySelector(".showcase-sticky");
+
+function updateMotionMode() {
+  document.body.classList.toggle("is-mobile-calm", isMobileCalm());
+}
+
+updateMotionMode();
 
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
@@ -47,6 +56,12 @@ function resizeCanvas() {
   cursorCanvas.style.height = `${height}px`;
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   cursorCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  if (isMobileCalm()) {
+    particles = [];
+    ctx.clearRect(0, 0, width, pageHeight);
+    cursorCtx.clearRect(0, 0, width, height);
+    return;
+  }
   particles = Array.from({ length: Math.min(160, Math.floor((width * pageHeight) / 64000)) }, () => ({
     x: Math.random() * width,
     y: Math.random() * pageHeight,
@@ -58,6 +73,11 @@ function resizeCanvas() {
 }
 
 function drawNetwork() {
+  if (isMobileCalm()) {
+    ctx.clearRect(0, 0, width, pageHeight);
+    return;
+  }
+
   ctx.clearRect(0, 0, width, pageHeight);
   const pointerDocY = pointerY + window.scrollY;
   for (const p of particles) {
@@ -163,9 +183,13 @@ function drawCursorTrail() {
 }
 
 resizeCanvas();
-drawNetwork();
+if (!isMobileCalm()) drawNetwork();
 if (enableCursorTrail) drawCursorTrail();
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener("resize", () => {
+  updateMotionMode();
+  resizeCanvas();
+  if (!reduceMotion && !isMobileCalm() && particles.length) requestAnimationFrame(drawNetwork);
+});
 
 function updateScrollMotion() {
   const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -212,7 +236,7 @@ window.addEventListener("pointermove", event => {
   pointerX = event.clientX;
   pointerY = event.clientY;
   hasPointer = true;
-  document.body.classList.add("has-pointer");
+  if (!isMobileCalm()) document.body.classList.add("has-pointer");
   document.documentElement.style.setProperty("--mx", `${pointerX}px`);
   document.documentElement.style.setProperty("--my", `${pointerY}px`);
 
@@ -261,7 +285,7 @@ if (feedLine && !reduceMotion) {
 }
 
 const heroStage = document.querySelector(".hero-stage");
-if (heroStage && !reduceMotion) {
+if (heroStage && !reduceMotion && canUseHoverMotion) {
   window.addEventListener("pointermove", event => {
     const rect = heroStage.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
@@ -276,7 +300,7 @@ if (heroStage && !reduceMotion) {
 
 document.querySelectorAll(".magnetic").forEach(button => {
   button.addEventListener("pointermove", event => {
-    if (reduceMotion) return;
+    if (reduceMotion || !canUseHoverMotion) return;
     const rect = button.getBoundingClientRect();
     const x = event.clientX - rect.left - rect.width / 2;
     const y = event.clientY - rect.top - rect.height / 2;
@@ -290,7 +314,7 @@ document.querySelectorAll(".magnetic").forEach(button => {
 
 document.querySelectorAll(".service-card").forEach(card => {
   card.addEventListener("pointermove", event => {
-    if (reduceMotion) return;
+    if (reduceMotion || !canUseHoverMotion) return;
     const rect = card.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width - 0.5) * 8;
     const y = ((event.clientY - rect.top) / rect.height - 0.5) * -8;
@@ -309,7 +333,7 @@ let proximityFrame = 0;
 
 function updateProximityEffects() {
   proximityFrame = 0;
-  if (reduceMotion) return;
+  if (reduceMotion || !canUseHoverMotion) return;
 
   proximityTargets.forEach(target => {
     const rect = target.getBoundingClientRect();
@@ -349,13 +373,15 @@ function updateProximityEffects() {
   });
 }
 
-window.addEventListener("pointermove", () => {
-  if (!proximityFrame) proximityFrame = window.requestAnimationFrame(updateProximityEffects);
-});
+if (canUseHoverMotion) {
+  window.addEventListener("pointermove", () => {
+    if (!proximityFrame) proximityFrame = window.requestAnimationFrame(updateProximityEffects);
+  });
 
-window.addEventListener("scroll", () => {
-  if (!proximityFrame) proximityFrame = window.requestAnimationFrame(updateProximityEffects);
-}, { passive: true });
+  window.addEventListener("scroll", () => {
+    if (!proximityFrame) proximityFrame = window.requestAnimationFrame(updateProximityEffects);
+  }, { passive: true });
+}
 
 const sketchPad = document.querySelector(".sketch-pad");
 const supportPack = document.querySelector(".support-pack");
@@ -567,7 +593,7 @@ function updateProgressSketches(now) {
 }
 
 function updateSketchPadHover() {
-  if (reduceMotion) return;
+  if (reduceMotion || !canUseHoverMotion) return;
 
   if (sketchPad) {
     setSketchTarget(sketchPad, isPointerInsideElement(sketchPad, 10));
@@ -578,22 +604,26 @@ function updateSketchPadHover() {
   }
 }
 
-window.addEventListener("pointermove", () => {
-  window.requestAnimationFrame(updateSketchPadHover);
-});
+if (canUseHoverMotion) {
+  window.addEventListener("pointermove", () => {
+    window.requestAnimationFrame(updateSketchPadHover);
+  });
 
-window.addEventListener("scroll", () => {
-  window.requestAnimationFrame(updateSketchPadHover);
-}, { passive: true });
+  window.addEventListener("scroll", () => {
+    window.requestAnimationFrame(updateSketchPadHover);
+  }, { passive: true });
+}
 
 if (sketchPad) {
   sketchPad.addEventListener("pointerenter", event => {
+    if (!canUseHoverMotion) return;
     pointerX = event.clientX;
     pointerY = event.clientY;
     setSketchTarget(sketchPad, true);
   });
 
   sketchPad.addEventListener("pointerleave", event => {
+    if (!canUseHoverMotion) return;
     pointerX = event.clientX;
     pointerY = event.clientY;
     setSketchTarget(sketchPad, false);
@@ -602,12 +632,14 @@ if (sketchPad) {
 
 if (supportPack) {
   supportPack.addEventListener("pointerenter", event => {
+    if (!canUseHoverMotion) return;
     pointerX = event.clientX;
     pointerY = event.clientY;
     setSketchTarget(supportPack, true);
   });
 
   supportPack.addEventListener("pointerleave", event => {
+    if (!canUseHoverMotion) return;
     pointerX = event.clientX;
     pointerY = event.clientY;
     setSketchTarget(supportPack, false);
