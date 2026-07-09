@@ -4984,7 +4984,7 @@ small,
   display: none !important;
 }
 
-.handshake-sketch .line-spark {
+.people-sketch .line-spark {
   stroke: var(--wine-bright);
   stroke-width: 5;
 }
