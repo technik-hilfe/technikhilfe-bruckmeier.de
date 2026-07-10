@@ -923,6 +923,13 @@ h2 {
   line-height: 1.55;
 }
 
+.timeline strong {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 950;
+  line-height: 1.15;
+}
+
 .process {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 0.75fr);

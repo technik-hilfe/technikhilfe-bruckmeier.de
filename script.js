@@ -68,7 +68,7 @@ function resizeCanvas() {
     r: Math.random() * 2.4 + 0.9,
     vx: (Math.random() - 0.5) * 0.5,
     vy: (Math.random() - 0.5) * 0.5,
-    hue: Math.random() > 0.78 ? "wine" : "paper"
+    hue: Math.random() > 0.78 ? "blue" : "paper"
   }));
 }
 
@@ -104,7 +104,7 @@ function drawNetwork() {
       const dy = a.y - b.y;
       const dist = Math.hypot(dx, dy);
       if (dist < 150) {
-        ctx.strokeStyle = `rgba(139, 23, 54, ${0.2 * (1 - dist / 150)})`;
+        ctx.strokeStyle = `rgba(30, 136, 200, ${0.18 * (1 - dist / 150)})`;
         ctx.lineWidth = 1.15;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
@@ -115,7 +115,7 @@ function drawNetwork() {
   }
 
   for (const p of particles) {
-    ctx.fillStyle = p.hue === "wine" ? "rgba(139, 23, 54, 0.62)" : "rgba(23, 16, 18, 0.32)";
+    ctx.fillStyle = p.hue === "blue" ? "rgba(30, 136, 200, 0.56)" : "rgba(16, 42, 67, 0.28)";
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
@@ -136,7 +136,7 @@ function pushCursorPixel(multiplier = 1) {
     size: Math.random() * 1.4 + 1.5,
     life: 0.58 + Math.random() * 0.42,
     spin: (Math.random() - 0.5) * 0.24,
-    wine: Math.random() > 0.55
+    blue: Math.random() > 0.55
   });
 }
 
@@ -172,7 +172,7 @@ function drawCursorTrail() {
     cursorCtx.save();
     cursorCtx.globalAlpha = alpha * 0.52;
     cursorCtx.translate(pixel.x, pixel.y);
-    cursorCtx.fillStyle = pixel.wine ? "rgba(139, 23, 54, 0.48)" : "rgba(24, 17, 20, 0.28)";
+    cursorCtx.fillStyle = pixel.blue ? "rgba(30, 136, 200, 0.44)" : "rgba(16, 42, 67, 0.24)";
     cursorCtx.beginPath();
     cursorCtx.arc(0, 0, pixel.size, 0, Math.PI * 2);
     cursorCtx.fill();
@@ -274,7 +274,7 @@ const feedMessages = [
   "repair /notebook...",
   "setup /smartphone...",
   "deploy /website...",
-  "secure /backup..."
+  "save /sicherung..."
 ];
 let feedIndex = 0;
 if (feedLine && !reduceMotion) {
