@@ -3,686 +3,2539 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Technik Hilfe | IT, Web & Gerätehilfe in Bad Füssing</title>
+    <title>Technik Hilfe | IT & Gerätehilfe in Bad Füssing</title>
     <meta
       name="description"
-      content="Moderner Vor-Ort-Support für Laptop, Smartphone, Router, Websites und kleine Unternehmen."
+      content="Technik Hilfe in Bad Füssing: persönliche Unterstützung für Computer, Smartphone, Router, Smart Home, Websites und Gewerbe."
     />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png?v=blue-logo-v2">
-    <link rel="shortcut icon" type="image/png" href="/favicon.png?v=blue-logo-v2">
-    <link rel="stylesheet" href="styles.css?v=blue-system-v5" />
+    <meta name="theme-color" content="#f7fbfd" />
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon.png" />
+    <style>
+      :root {
+        --blue: #1e88c8;
+        --blue-dark: #0b6fae;
+        --ink: #102a43;
+        --ink-soft: #48647c;
+        --sky: #eaf6fc;
+        --paper: #f7fbfd;
+        --white: #ffffff;
+        --line: rgba(16, 42, 67, 0.14);
+        --line-blue: rgba(30, 136, 200, 0.28);
+        --shadow: 0 18px 48px rgba(16, 42, 67, 0.1);
+        --page: min(1240px, calc(100% - 48px));
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 110px;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+
+      body.is-loading {
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      summary {
+        font: inherit;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      img,
+      svg {
+        display: block;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .icon-sprite {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+
+      .icon {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
+      .boot {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        background: var(--paper);
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+
+      .boot.is-done {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .boot-inner {
+        width: min(360px, calc(100% - 56px));
+        text-align: center;
+      }
+
+      .boot-mark {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 28px;
+        border: 1px solid var(--line-blue);
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 16px 34px rgba(30, 136, 200, 0.18);
+      }
+
+      .boot-count {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--ink);
+        font-size: 2.8rem;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .boot-track {
+        height: 4px;
+        overflow: hidden;
+        background: var(--sky);
+        border-radius: 99px;
+      }
+
+      .boot-bar {
+        width: 0;
+        height: 100%;
+        background: var(--blue);
+      }
+
+      .scroll-progress {
+        position: fixed;
+        z-index: 120;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--blue);
+      }
+
+      .site-header {
+        position: fixed;
+        z-index: 100;
+        top: 16px;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+      }
+
+      .nav-shell {
+        width: var(--page);
+        min-height: 64px;
+        margin: 0 auto;
+        padding: 7px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 14px;
+        border: 1px solid rgba(30, 136, 200, 0.32);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 14px 38px rgba(16, 42, 67, 0.1);
+        backdrop-filter: blur(18px);
+        pointer-events: auto;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        font-weight: 900;
+      }
+
+      .brand img {
+        width: 48px;
+        height: 48px;
+        flex: 0 0 auto;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+
+      .brand span {
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .nav-links a {
+        position: relative;
+        padding: 12px 15px;
+        border-radius: 999px;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        font-weight: 800;
+        white-space: nowrap;
+        transition: color 0.2s ease, background 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.is-active {
+        color: var(--ink);
+        background: var(--sky);
+      }
+
+      .nav-cta,
+      .button {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+        min-height: 48px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background: var(--blue);
+        color: var(--white);
+        font-size: 0.92rem;
+        font-weight: 900;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .nav-cta:hover,
+      .button:hover {
+        background: var(--blue-dark);
+        box-shadow: 0 12px 28px rgba(30, 136, 200, 0.22);
+      }
+
+      .button.secondary {
+        border-color: var(--line);
+        background: var(--white);
+        color: var(--ink);
+      }
+
+      .button.secondary:hover {
+        border-color: var(--blue);
+        background: var(--sky);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 130px 0 74px;
+        background-color: var(--paper);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.58;
+        background-image:
+          linear-gradient(rgba(30, 136, 200, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(30, 136, 200, 0.08) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: linear-gradient(to bottom, transparent, black 18%, black 78%, transparent);
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: -15%;
+        bottom: -42%;
+        width: 72vw;
+        aspect-ratio: 1;
+        border: 1px solid var(--line-blue);
+        border-radius: 50%;
+        box-shadow: 0 0 0 80px rgba(30, 136, 200, 0.035), 0 0 0 160px rgba(30, 136, 200, 0.025);
+        pointer-events: none;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        width: var(--page);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1.04fr) minmax(460px, 0.96fr);
+        align-items: center;
+        gap: 36px;
+      }
+
+      .hero-inner > * {
+        min-width: 0;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 22px;
+        color: var(--blue-dark);
+        font-size: 0.82rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 24px;
+        height: 2px;
+        background: var(--blue);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 28px;
+        font-size: 7rem;
+        line-height: 0.88;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      h1 .accent {
+        display: block;
+        color: var(--blue);
+      }
+
+      .hero-lead {
+        max-width: 650px;
+        margin-bottom: 30px;
+        color: var(--ink-soft);
+        font-size: 1.18rem;
+        line-height: 1.65;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        font-weight: 750;
+      }
+
+      .hero-facts li {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .hero-facts li::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border: 2px solid var(--blue);
+        border-radius: 50%;
+      }
+
+      .device-stage {
+        position: relative;
+        width: min(100%, 620px);
+        aspect-ratio: 1;
+        justify-self: end;
+        perspective: 1200px;
+      }
+
+      .stage-ring,
+      .stage-ring::before,
+      .stage-ring::after {
+        position: absolute;
+        inset: 10%;
+        border: 1px solid var(--line-blue);
+        border-radius: 50%;
+      }
+
+      .stage-ring {
+        animation: spin 30s linear infinite;
+      }
+
+      .stage-ring::before,
+      .stage-ring::after {
+        content: "";
+      }
+
+      .stage-ring::before {
+        inset: 11%;
+        border-style: dashed;
+      }
+
+      .stage-ring::after {
+        inset: 28%;
+      }
+
+      .stage-dot {
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--blue);
+        box-shadow: 0 0 0 8px rgba(30, 136, 200, 0.12);
+      }
+
+      .monitor {
+        position: absolute;
+        z-index: 4;
+        top: 20%;
+        left: 13%;
+        width: 74%;
+        aspect-ratio: 1.48;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.34);
+        border-radius: 8px;
+        background: var(--ink);
+        box-shadow: 0 34px 70px rgba(16, 42, 67, 0.22);
+        transform: rotateY(-8deg) rotateX(4deg);
+        transition: transform 0.35s ease;
+      }
+
+      .monitor-screen {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        background: #0b2135;
+      }
+
+      .monitor-top {
+        height: 36px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+      }
+
+      .monitor-top i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+        opacity: 0.9;
+      }
+
+      .monitor-grid {
+        height: calc(100% - 36px);
+        padding: 18px;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        grid-template-rows: 1fr auto;
+        gap: 12px;
+      }
+
+      .screen-panel {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.055);
+      }
+
+      .screen-panel.signal {
+        grid-row: span 2;
+      }
+
+      .signal-wave {
+        position: absolute;
+        inset: 16%;
+      }
+
+      .signal-wave::before,
+      .signal-wave::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 2px solid var(--blue);
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-radius: 50%;
+        transform: rotate(-10deg);
+      }
+
+      .signal-wave::after {
+        inset: 22%;
+        opacity: 0.55;
+      }
+
+      .screen-copy {
+        position: absolute;
+        left: 14px;
+        bottom: 13px;
+        color: var(--white);
+      }
+
+      .screen-copy small,
+      .screen-copy strong {
+        display: block;
+      }
+
+      .screen-copy small {
+        margin-bottom: 5px;
+        color: #93cceb;
+        font-size: 0.58rem;
+        text-transform: uppercase;
+      }
+
+      .screen-copy strong {
+        font-size: 0.88rem;
+      }
+
+      .screen-bars {
+        padding: 17px 14px;
+        display: flex;
+        align-items: end;
+        gap: 6px;
+      }
+
+      .screen-bars i {
+        width: 10%;
+        min-height: 12%;
+        border-radius: 2px 2px 0 0;
+        background: var(--blue);
+        opacity: 0.85;
+        animation: bars 2.4s ease-in-out infinite alternate;
+      }
+
+      .screen-bars i:nth-child(2) { height: 45%; animation-delay: -0.4s; }
+      .screen-bars i:nth-child(3) { height: 72%; animation-delay: -0.8s; }
+      .screen-bars i:nth-child(4) { height: 38%; animation-delay: -1.2s; }
+      .screen-bars i:nth-child(5) { height: 82%; animation-delay: -1.6s; }
+      .screen-bars i:nth-child(6) { height: 58%; animation-delay: -2s; }
+
+      .screen-status {
+        padding: 13px;
+      }
+
+      .screen-status span {
+        display: block;
+        height: 5px;
+        margin-bottom: 9px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .screen-status span:nth-child(1) { width: 72%; }
+      .screen-status span:nth-child(2) { width: 92%; }
+      .screen-status span:nth-child(3) { width: 54%; background: var(--blue); }
+
+      .monitor-stand {
+        position: absolute;
+        z-index: 3;
+        top: 68%;
+        left: 43%;
+        width: 15%;
+        height: 18%;
+        border-bottom: 12px solid var(--ink);
+        transform: perspective(200px) rotateX(-14deg);
+      }
+
+      .monitor-stand::after {
+        content: "";
+        position: absolute;
+        left: -35%;
+        bottom: -12px;
+        width: 170%;
+        height: 12px;
+        border-radius: 8px 8px 2px 2px;
+        background: var(--ink);
+      }
+
+      .device-card {
+        position: absolute;
+        z-index: 6;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        min-height: 54px;
+        padding: 10px 14px;
+        border: 1px solid rgba(30, 136, 200, 0.25);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+        color: var(--ink);
+        font-size: 0.78rem;
+        font-weight: 850;
+        animation: float 5s ease-in-out infinite;
+      }
+
+      .device-card .icon {
+        color: var(--blue);
+      }
+
+      .device-card.phone {
+        top: 13%;
+        right: 0;
+        animation-delay: -1.2s;
+      }
+
+      .device-card.router {
+        right: -2%;
+        bottom: 15%;
+        animation-delay: -2.4s;
+      }
+
+      .device-card.laptop {
+        left: 0;
+        bottom: 10%;
+        animation-delay: -3.6s;
+      }
+
+      .status-pill {
+        position: absolute;
+        z-index: 8;
+        top: 10%;
+        left: 5%;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--white);
+        font-size: 0.72rem;
+        font-weight: 850;
+        box-shadow: var(--shadow);
+      }
+
+      .status-pill::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #6ee7a7;
+        box-shadow: 0 0 0 5px rgba(110, 231, 167, 0.12);
+      }
+
+      .marquee {
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .marquee-track {
+        width: max-content;
+        display: flex;
+        animation: marquee 38s linear infinite;
+      }
+
+      .marquee-set {
+        display: flex;
+        flex: 0 0 auto;
+        min-width: 100vw;
+        justify-content: space-around;
+      }
+
+      .marquee span {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        padding: 22px 24px;
+        font-size: 0.86rem;
+        font-weight: 850;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .marquee span::after {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border: 2px solid var(--blue);
+        transform: rotate(45deg);
+      }
+
+      .section {
+        position: relative;
+        padding: 120px 0;
+      }
+
+      .section-inner {
+        width: var(--page);
+        margin: 0 auto;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.82fr) minmax(300px, 0.42fr);
+        justify-content: space-between;
+        align-items: end;
+        gap: 50px;
+        margin-bottom: 54px;
+      }
+
+      .section-head h2,
+      .split-copy h2,
+      .price-copy h2,
+      .contact-copy h2 {
+        margin-bottom: 0;
+        font-size: 4.3rem;
+        line-height: 0.98;
+        font-weight: 950;
+        letter-spacing: 0;
+      }
+
+      .section-head > p,
+      .split-copy > p,
+      .price-copy > p {
+        margin-bottom: 0;
+        color: var(--ink-soft);
+        line-height: 1.7;
+      }
+
+      .services {
+        background: var(--white);
+      }
+
+      .service-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .service-card {
+        position: relative;
+        min-height: 240px;
+        padding: 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--white);
+        transform-style: preserve-3d;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.18s ease;
+      }
+
+      .service-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--blue);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .service-card:hover {
+        border-color: var(--line-blue);
+        box-shadow: var(--shadow);
+      }
+
+      .service-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .service-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 44px;
+      }
+
+      .service-icon {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line-blue);
+        border-radius: 8px;
+        background: var(--sky);
+        color: var(--blue-dark);
+      }
+
+      .service-index {
+        color: #8aa0b3;
+        font-size: 0.74rem;
+        font-weight: 850;
+      }
+
+      .service-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.12rem;
+        line-height: 1.2;
+      }
+
+      .service-card p {
+        margin-bottom: 0;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .showcase {
+        overflow: hidden;
+        padding: 0;
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .showcase-inner {
+        min-height: 780px;
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        align-items: stretch;
+      }
+
+      .showcase-copy {
+        position: relative;
+        z-index: 2;
+        padding: 110px max(48px, calc((100vw - 1240px) / 2));
+        padding-right: 70px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .showcase-copy .eyebrow {
+        color: #8fd0f1;
+      }
+
+      .showcase-copy h2 {
+        margin-bottom: 24px;
+        font-size: 5rem;
+        line-height: 0.95;
+        font-weight: 950;
+      }
+
+      .showcase-copy p {
+        max-width: 520px;
+        margin-bottom: 32px;
+        color: #bfd0de;
+        font-size: 1.08rem;
+        line-height: 1.65;
+      }
+
+      .showcase-points {
+        display: grid;
+        gap: 12px;
+      }
+
+      .showcase-points span {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        color: #e4f0f7;
+        font-weight: 800;
+      }
+
+      .showcase-points span::before {
+        content: "";
+        width: 18px;
+        height: 2px;
+        background: var(--blue);
+      }
+
+      .diagnostic {
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: #0b2135;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+        background-size: 52px 52px;
+      }
+
+      .diagnostic::before,
+      .diagnostic::after {
+        content: "";
+        position: absolute;
+        border: 1px solid rgba(30, 136, 200, 0.48);
+        border-radius: 50%;
+      }
+
+      .diagnostic::before {
+        width: 520px;
+        height: 520px;
+      }
+
+      .diagnostic::after {
+        width: 360px;
+        height: 360px;
+        border-style: dashed;
+        animation: spin 22s linear infinite reverse;
+      }
+
+      .diagnostic-core {
+        position: relative;
+        z-index: 3;
+        width: min(520px, calc(100% - 70px));
+      }
+
+      .diagnostic-device {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        margin: 0 auto 46px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.055);
+        box-shadow: 0 0 0 28px rgba(30, 136, 200, 0.055);
+      }
+
+      .diagnostic-device .icon {
+        width: 82px;
+        height: 82px;
+        color: #78c4eb;
+        stroke-width: 1.2;
+      }
+
+      .scan-line {
+        position: absolute;
+        z-index: 4;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 2px;
+        background: #6ed0ff;
+        box-shadow: 0 0 20px #1e88c8;
+        animation: scan 3s ease-in-out infinite;
+      }
+
+      .diagnostic-output {
+        padding: 18px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(10px);
+      }
+
+      .diagnostic-label {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 10px;
+        color: #8fd0f1;
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .diagnostic-label::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #6ee7a7;
+      }
+
+      .diagnostic-output strong {
+        display: block;
+        min-height: 2.2em;
+        font-size: 1.5rem;
+        line-height: 1.1;
+      }
+
+      .diagnostic-tabs {
+        position: relative;
+        z-index: 5;
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+      }
+
+      .diagnostic-tabs button {
+        min-height: 43px;
+        padding: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 6px;
+        background: transparent;
+        color: #bfd0de;
+        font-size: 0.76rem;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .diagnostic-tabs button:hover,
+      .diagnostic-tabs button.is-active {
+        border-color: var(--blue);
+        background: var(--blue);
+        color: var(--white);
+      }
+
+      .process {
+        background: var(--sky);
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        counter-reset: steps;
+      }
+
+      .process-step {
+        position: relative;
+        min-height: 330px;
+        padding: 30px;
+        overflow: hidden;
+        border: 1px solid var(--line-blue);
+        border-radius: 8px;
+        background: var(--white);
+        counter-increment: steps;
+      }
+
+      .process-step::before {
+        content: "0" counter(steps);
+        display: block;
+        margin-bottom: 96px;
+        color: var(--blue);
+        font-size: 0.82rem;
+        font-weight: 950;
+      }
+
+      .process-step::after {
+        content: "";
+        position: absolute;
+        right: -62px;
+        top: -62px;
+        width: 160px;
+        height: 160px;
+        border: 1px solid var(--line-blue);
+        border-radius: 50%;
+        transition: transform 0.45s ease;
+      }
+
+      .process-step:hover::after {
+        transform: scale(1.35);
+      }
+
+      .process-step h3 {
+        margin-bottom: 12px;
+        font-size: 1.65rem;
+      }
+
+      .process-step p {
+        margin-bottom: 0;
+        color: var(--ink-soft);
+        line-height: 1.6;
+      }
+
+      .price {
+        background: var(--white);
+      }
+
+      .price-layout {
+        display: grid;
+        grid-template-columns: 0.7fr 1.3fr;
+        align-items: center;
+        gap: 80px;
+      }
+
+      .price-copy .eyebrow {
+        margin-bottom: 20px;
+      }
+
+      .price-copy h2 {
+        margin-bottom: 25px;
+      }
+
+      .price-board {
+        position: relative;
+        min-height: 450px;
+        padding: 52px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid var(--blue);
+        border-radius: 8px;
+        background: var(--blue);
+        color: var(--white);
+      }
+
+      .price-main {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: baseline;
+        gap: 18px;
+      }
+
+      .price-main strong {
+        color: var(--white);
+        font-size: 9rem;
+        line-height: 0.9;
+        font-weight: 950;
+      }
+
+      .price-main span {
+        color: var(--white);
+        font-size: 1.25rem;
+        font-weight: 900;
+      }
+
+      .price-details {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .price-detail {
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.14);
+        color: var(--white);
+      }
+
+      .price-detail small,
+      .price-detail strong {
+        display: block;
+      }
+
+      .price-detail small {
+        margin-bottom: 6px;
+        color: var(--sky);
+        font-size: 0.74rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .price-detail strong {
+        line-height: 1.3;
+      }
+
+      .team {
+        padding-top: 20px;
+        background: var(--white);
+      }
+
+      .team-layout {
+        display: grid;
+        grid-template-columns: 0.7fr 1.3fr;
+        gap: 80px;
+        align-items: stretch;
+      }
+
+      .team-intro {
+        padding: 54px 0;
+      }
+
+      .team-intro h2 {
+        margin-bottom: 24px;
+        font-size: 4.1rem;
+        line-height: 0.98;
+        font-weight: 950;
+      }
+
+      .team-intro p {
+        color: var(--ink-soft);
+        line-height: 1.7;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .person {
+        position: relative;
+        min-height: 420px;
+        padding: 28px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        border: 1px solid var(--line-blue);
+        border-radius: 8px;
+        background: var(--sky);
+      }
+
+      .person-figure {
+        position: absolute;
+        left: 50%;
+        top: 42px;
+        width: 180px;
+        height: 240px;
+        transform: translateX(-50%);
+      }
+
+      .person-head {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 86px;
+        height: 86px;
+        border: 3px solid var(--blue);
+        border-radius: 50%;
+        background: var(--white);
+        transform: translateX(-50%);
+      }
+
+      .person-body {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 142px;
+        border: 3px solid var(--blue);
+        border-bottom: 0;
+        border-radius: 90px 90px 0 0;
+        background: rgba(255, 255, 255, 0.64);
+      }
+
+      .person:nth-child(2) .person-head,
+      .person:nth-child(2) .person-body {
+        border-color: var(--ink);
+      }
+
+      .person-info {
+        position: relative;
+        z-index: 2;
+        padding-top: 22px;
+        border-top: 1px solid var(--line-blue);
+      }
+
+      .person-info strong,
+      .person-info span {
+        display: block;
+      }
+
+      .person-info strong {
+        margin-bottom: 5px;
+        font-size: 1.22rem;
+      }
+
+      .person-info span {
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
+
+      .contact {
+        padding-bottom: 60px;
+        background: var(--white);
+      }
+
+      .contact-panel {
+        width: var(--page);
+        margin: 0 auto;
+        padding: 74px;
+        overflow: hidden;
+        border-radius: 8px;
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .contact-top {
+        display: grid;
+        grid-template-columns: 0.82fr 1.18fr;
+        align-items: end;
+        gap: 60px;
+        margin-bottom: 56px;
+      }
+
+      .contact-copy .eyebrow {
+        color: #8fd0f1;
+      }
+
+      .contact-copy h2 {
+        max-width: 620px;
+      }
+
+      .contact-top > p {
+        margin-bottom: 0;
+        color: #bfd0de;
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .contact-method {
+        min-height: 220px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.055);
+        transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      }
+
+      .contact-method:hover {
+        transform: translateY(-7px);
+        border-color: var(--blue);
+        background: rgba(30, 136, 200, 0.14);
+      }
+
+      .contact-method-icon {
+        position: relative;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        margin-bottom: auto;
+        border-radius: 50%;
+        background: var(--blue);
+        color: var(--white);
+      }
+
+      .contact-method-icon .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        transform: translate(-50%, -50%);
+        stroke-width: 1.9;
+      }
+
+      .contact-method:first-child .contact-method-icon .icon {
+        transform: translate(calc(-50% + 1px), calc(-50% + 1px));
+      }
+
+      .contact-method span,
+      .contact-method strong,
+      .contact-method small {
+        display: block;
+      }
+
+      .contact-method span {
+        margin-bottom: 7px;
+        color: #8fd0f1;
+        font-size: 0.74rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .contact-method strong {
+        margin-bottom: 8px;
+        font-size: 1.35rem;
+      }
+
+      .contact-method small {
+        overflow-wrap: anywhere;
+        color: #bfd0de;
+        line-height: 1.4;
+      }
+
+      .legal {
+        padding: 30px 0 80px;
+        background: var(--white);
+      }
+
+      .legal-grid {
+        width: var(--page);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .legal-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+      }
+
+      .legal-card summary {
+        position: relative;
+        min-height: 94px;
+        padding: 24px 74px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .legal-card summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .legal-card summary::after {
+        content: "";
+        position: absolute;
+        right: 24px;
+        top: 50%;
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--line-blue);
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
+
+      .legal-card summary::before {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        right: 36px;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid var(--blue-dark);
+        border-bottom: 2px solid var(--blue-dark);
+        transform: translateY(-68%) rotate(45deg);
+        transition: transform 0.2s ease;
+      }
+
+      .legal-card[open] summary::before {
+        transform: translateY(-22%) rotate(225deg);
+      }
+
+      .legal-card summary span,
+      .legal-card summary strong {
+        display: block;
+      }
+
+      .legal-card summary span {
+        margin-bottom: 5px;
+        color: var(--blue-dark);
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .legal-content {
+        max-height: 520px;
+        overflow: auto;
+        padding: 0 24px 28px;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      .legal-content h3 {
+        margin: 24px 0 8px;
+        color: var(--ink);
+        font-size: 1rem;
+      }
+
+      .legal-content p {
+        margin-bottom: 14px;
+      }
+
+      .legal-content a {
+        color: var(--blue-dark);
+        text-decoration: underline;
+      }
+
+      .site-footer {
+        padding: 26px 0 34px;
+        border-top: 1px solid var(--line);
+        background: var(--white);
+      }
+
+      .footer-inner {
+        width: var(--page);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        color: var(--ink-soft);
+        font-size: 0.84rem;
+      }
+
+      .footer-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      .footer-brand img {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 18px;
+      }
+
+      .cursor-dot,
+      .cursor-ring {
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .cursor-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--blue);
+      }
+
+      .cursor-ring {
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(30, 136, 200, 0.5);
+        transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease;
+      }
+
+      .cursor-ring.is-hovering {
+        width: 48px;
+        height: 48px;
+        border-color: var(--blue);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+      }
+
+      @keyframes bars {
+        from { height: 22%; }
+        to { height: 86%; }
+      }
+
+      @keyframes scan {
+        0%, 100% { top: 7%; opacity: 0; }
+        12%, 88% { opacity: 1; }
+        50% { top: 92%; }
+      }
+
+      @keyframes marquee {
+        to { transform: translateX(-50%); }
+      }
+
+      @media (min-width: 2200px) {
+        :root {
+          --page: min(1840px, calc(100% - 120px));
+        }
+
+        .nav-shell {
+          min-height: 70px;
+          padding: 9px;
+        }
+
+        .brand img {
+          width: 52px;
+          height: 52px;
+        }
+
+        .nav-links {
+          gap: 10px;
+        }
+
+        .nav-links a {
+          padding: 14px 19px;
+          font-size: 0.96rem;
+        }
+
+        .hero {
+          padding: 150px 0 90px;
+        }
+
+        .hero-inner {
+          grid-template-columns: minmax(0, 920px) minmax(700px, 1fr);
+          gap: 100px;
+        }
+
+        .hero-copy {
+          max-width: 920px;
+        }
+
+        h1 {
+          max-width: 900px;
+          font-size: 8.25rem;
+        }
+
+        .hero-lead {
+          max-width: 760px;
+          font-size: 1.3rem;
+        }
+
+        .device-stage {
+          width: min(100%, 780px);
+        }
+
+        .section {
+          padding: 140px 0;
+        }
+
+        .section-head {
+          grid-template-columns: minmax(0, 1fr) 520px;
+          gap: 100px;
+          margin-bottom: 64px;
+        }
+
+        .section-head h2,
+        .split-copy h2,
+        .price-copy h2,
+        .contact-copy h2 {
+          font-size: 5.1rem;
+        }
+
+        .service-grid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: 14px;
+        }
+
+        .service-card {
+          min-height: 260px;
+          padding: 26px;
+        }
+
+        .service-top {
+          margin-bottom: 52px;
+        }
+
+        .showcase-inner {
+          min-height: 860px;
+          grid-template-columns: 0.9fr 1.1fr;
+        }
+
+        .showcase-copy {
+          padding-left: max(64px, calc((100vw - 1840px) / 2));
+          padding-right: 80px;
+        }
+
+        .showcase-copy h2 {
+          font-size: 5.5rem;
+        }
+
+        .diagnostic-core {
+          width: min(620px, calc(100% - 90px));
+        }
+
+        .diagnostic-device {
+          width: 250px;
+          height: 250px;
+        }
+
+        .price-layout {
+          grid-template-columns: minmax(520px, 0.72fr) minmax(0, 1.28fr);
+          gap: 120px;
+        }
+
+        .price-board {
+          min-height: 510px;
+          padding: 64px;
+        }
+
+        .price-main strong {
+          font-size: 10.5rem;
+        }
+
+        .team-layout {
+          grid-template-columns: minmax(520px, 0.7fr) minmax(0, 1.3fr);
+          gap: 120px;
+        }
+
+        .team-intro h2 {
+          font-size: 4.8rem;
+        }
+
+        .person {
+          min-height: 460px;
+        }
+
+        .contact-panel {
+          padding: 90px;
+        }
+
+        .contact-top {
+          grid-template-columns: 0.75fr 1.25fr;
+          gap: 100px;
+        }
+
+        .contact-method {
+          min-height: 240px;
+        }
+      }
+
+      @media (max-width: 1120px) {
+        h1 {
+          font-size: 5.5rem;
+        }
+
+        .hero-inner {
+          grid-template-columns: minmax(0, 1fr) minmax(390px, 0.85fr);
+        }
+
+        .section-head h2,
+        .split-copy h2,
+        .price-copy h2,
+        .contact-copy h2 {
+          font-size: 3.5rem;
+        }
+
+        .service-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .showcase-copy {
+          padding-left: 40px;
+          padding-right: 40px;
+        }
+
+        .showcase-copy h2 {
+          font-size: 4rem;
+        }
+
+        .price-main strong {
+          font-size: 7.3rem;
+        }
+      }
+
+      @media (max-width: 900px) {
+        :root {
+          --page: min(100% - 28px, 720px);
+        }
+
+        html {
+          scroll-padding-top: 92px;
+        }
+
+        .site-header {
+          top: 10px;
+        }
+
+        .nav-shell {
+          min-height: 56px;
+          grid-template-columns: auto 1fr;
+          gap: 8px;
+          padding: 5px;
+        }
+
+        .brand img {
+          width: 44px;
+          height: 44px;
+        }
+
+        .brand span,
+        .nav-cta {
+          display: none;
+        }
+
+        .nav-links {
+          justify-content: space-evenly;
+          min-width: 0;
+        }
+
+        .nav-links a {
+          padding: 10px 8px;
+          font-size: 0.76rem;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 112px 0 64px;
+        }
+
+        .hero::after,
+        .stage-ring {
+          display: none;
+        }
+
+        .hero-inner {
+          grid-template-columns: 1fr;
+          gap: 52px;
+        }
+
+        .hero-copy {
+          max-width: none;
+        }
+
+        h1 {
+          max-width: 680px;
+          font-size: 5rem;
+        }
+
+        .hero-lead {
+          max-width: 600px;
+        }
+
+        .device-stage {
+          width: min(100%, 590px);
+          margin: 0 auto;
+          justify-self: center;
+        }
+
+        .monitor {
+          transform: none;
+        }
+
+        .device-card,
+        .stage-ring,
+        .screen-bars i {
+          animation: none;
+        }
+
+        .section {
+          padding: 90px 0;
+        }
+
+        .section-head,
+        .price-layout,
+        .team-layout,
+        .contact-top {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .section-head {
+          margin-bottom: 38px;
+        }
+
+        .service-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .service-card {
+          transform: none !important;
+        }
+
+        .showcase-inner {
+          min-height: auto;
+          grid-template-columns: 1fr;
+        }
+
+        .showcase-copy {
+          padding: 90px max(24px, calc((100vw - 720px) / 2));
+        }
+
+        .diagnostic {
+          min-height: 640px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-left: 0;
+        }
+
+        .process-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .process-step {
+          min-height: 245px;
+        }
+
+        .process-step::before {
+          margin-bottom: 54px;
+        }
+
+        .price-layout,
+        .team-layout {
+          gap: 44px;
+        }
+
+        .team-intro {
+          padding: 0;
+        }
+
+        .contact-panel {
+          padding: 54px 36px;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .contact-method {
+          min-height: 180px;
+        }
+
+        .legal-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cursor-dot,
+        .cursor-ring {
+          display: none;
+        }
+      }
+
+      @media (max-width: 600px) {
+        :root {
+          --page: calc(100% - 24px);
+        }
+
+        .nav-shell {
+          width: calc(100% - 16px);
+          gap: 4px;
+          padding: 4px;
+        }
+
+        .brand img {
+          width: 40px;
+          height: 40px;
+        }
+
+        .nav-links {
+          gap: 0;
+        }
+
+        .nav-links a {
+          padding: 9px 2px;
+          font-size: 0.64rem;
+        }
+
+        .hero {
+          padding-top: 102px;
+        }
+
+        .hero::before {
+          opacity: 0.2;
+          background-size: 52px 52px;
+        }
+
+        .eyebrow {
+          margin-bottom: 18px;
+          font-size: 0.72rem;
+        }
+
+        h1 {
+          margin-bottom: 22px;
+          font-size: 3.35rem;
+          line-height: 0.92;
+        }
+
+        .hero-lead {
+          margin-bottom: 24px;
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .hero-facts {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .device-stage {
+          width: 100%;
+          max-width: 366px;
+          aspect-ratio: 1 / 0.88;
+        }
+
+        .monitor {
+          top: 17%;
+          left: 7%;
+          width: 86%;
+        }
+
+        .monitor-grid {
+          padding: 10px;
+          gap: 7px;
+        }
+
+        .monitor-stand {
+          top: 72%;
+        }
+
+        .device-card {
+          min-height: 45px;
+          padding: 8px 10px;
+          font-size: 0.66rem;
+        }
+
+        .device-card.phone { top: 4%; right: 0; }
+        .device-card.router { right: 0; bottom: 6%; }
+        .device-card.laptop { left: 0; bottom: 1%; }
+
+        .status-pill {
+          top: 3%;
+          left: 0;
+          font-size: 0.64rem;
+        }
+
+        .marquee span {
+          padding: 18px 18px;
+          font-size: 0.76rem;
+        }
+
+        .section {
+          padding: 76px 0;
+        }
+
+        .section-head h2,
+        .split-copy h2,
+        .price-copy h2,
+        .contact-copy h2,
+        .team-intro h2 {
+          font-size: 2.75rem;
+        }
+
+        .service-grid {
+          grid-template-columns: 1fr;
+          gap: 9px;
+        }
+
+        .service-card {
+          min-height: 0;
+          padding: 18px;
+        }
+
+        .service-top {
+          margin-bottom: 24px;
+        }
+
+        .showcase-copy {
+          padding: 76px 18px;
+        }
+
+        .showcase-copy h2 {
+          font-size: 3.15rem;
+        }
+
+        .diagnostic {
+          min-height: 560px;
+        }
+
+        .diagnostic::before {
+          width: 390px;
+          height: 390px;
+        }
+
+        .diagnostic::after {
+          width: 270px;
+          height: 270px;
+          animation: none;
+        }
+
+        .diagnostic-device {
+          width: 170px;
+          height: 170px;
+          margin-bottom: 36px;
+        }
+
+        .diagnostic-device .icon {
+          width: 64px;
+          height: 64px;
+        }
+
+        .scan-line {
+          animation: scan 4s ease-in-out 2;
+        }
+
+        .process-step {
+          min-height: 220px;
+          padding: 24px;
+        }
+
+        .price-board {
+          min-height: 400px;
+          padding: 30px 20px;
+        }
+
+        .price-main {
+          display: block;
+        }
+
+        .price-main strong {
+          display: block;
+          margin-bottom: 12px;
+          font-size: 6.3rem;
+        }
+
+        .price-details,
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .person {
+          min-height: 390px;
+        }
+
+        .contact {
+          padding-bottom: 28px;
+        }
+
+        .contact-panel {
+          width: calc(100% - 16px);
+          padding: 48px 20px;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
   </head>
-  <body>
-    <div class="boot-loader" aria-hidden="true">
-      <div class="boot-shell">
-        <div class="boot-percent">
-          <span data-boot-percent>0</span><em>%</em>
-        </div>
-        <i class="boot-bar"></i>
+  <body class="is-loading">
+    <svg class="icon-sprite" aria-hidden="true">
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2" /><path d="M10 5h4M11 18.5h2" /></symbol>
+      <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="11" rx="1.5" /><path d="M2.5 18h19l-1.5 2H4l-1.5-2Z" /></symbol>
+      <symbol id="i-router" viewBox="0 0 24 24"><path d="M5 9.5a10 10 0 0 1 14 0M8 12.5a6 6 0 0 1 8 0M11 15.5a2 2 0 0 1 2 0" /><rect x="4" y="17" width="16" height="4" rx="1" /><path d="M8 19h.01M11 19h.01" /></symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="13" rx="2" /><path d="M8 21h8M12 16v5" /></symbol>
+      <symbol id="i-printer" viewBox="0 0 24 24"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect x="7" y="14" width="10" height="7" /><path d="M17 11h.01" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.7 3 7.7 7.5 9.5 4.5-1.8 7.5-4.8 7.5-9.5V6L12 3Z" /><path d="m9 12 2 2 4-5" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M5.5 9v12h13V9M9 21v-7h6v7" /></symbol>
+      <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7" /></symbol>
+      <symbol id="i-tools" viewBox="0 0 24 24"><path d="m14 7 3-3 3 3-3 3M14.5 9.5 5 19l-2 2 2-2-2-2 9.5-9.5" /><path d="m13 13 7 7" /></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4.5 21c.8-4.4 3.3-6.5 7.5-6.5s6.7 2.1 7.5 6.5" /></symbol>
+      <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 4h16v13H8l-4 4V4Z" /><path d="M8 9h8M8 13h5" /></symbol>
+      <symbol id="i-call" viewBox="0 0 24 24"><path d="M6.6 3.5 4 6.1c-.8.8-.3 4.2 3.5 8s7.2 4.3 8 3.5l2.6-2.6-3.5-3.5-2 2c-.5.5-1.9-.2-3.1-1.4S7.6 9.5 8.1 9l2-2-3.5-3.5Z" /></symbol>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M5 20 6.1 16A8 8 0 1 1 9 18.3L5 20Z" /><path d="M9 8.5c.5 3.3 2.4 5.2 5.7 5.8" /></symbol>
+    </svg>
+
+    <div class="boot" aria-hidden="true">
+      <div class="boot-inner">
+        <img class="boot-mark" src="logo.png" alt="" />
+        <span class="boot-count">0%</span>
+        <div class="boot-track"><div class="boot-bar"></div></div>
       </div>
     </div>
-    <div class="cursor-spotlight" aria-hidden="true"></div>
-    <canvas class="ambient-canvas" aria-hidden="true"></canvas>
-    <canvas class="cursor-pixel-canvas" aria-hidden="true"></canvas>
-    <div class="scroll-progress" aria-hidden="true"></div>
 
-    <header class="site-header" data-theme="dark">
-      <a class="brand" href="#top" aria-label="Technik Hilfe Startseite">
-        <span class="brand-mark logo-mark" aria-hidden="true">
-          <img src="logo.png?v=blue-logo-v2" alt="" />
-        </span>
-        <span class="brand-name">Technik Hilfe</span>
-      </a>
-      <nav class="nav-pills" aria-label="Hauptnavigation">
-        <a href="#kontakt">Kontakt</a>
-        <a href="#leistungen">Leistungen</a>
-        <a href="#preise">Preise</a>
-        <a href="#ablauf">Ablauf</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Hauptnavigation">
+        <a class="brand" href="#start" aria-label="Technik Hilfe Startseite">
+          <img src="logo.png" alt="Technik Hilfe Logo" />
+          <span>Technik Hilfe</span>
+        </a>
+        <div class="nav-links">
+          <a href="#leistungen">Leistungen</a>
+          <a href="#ablauf">Ablauf</a>
+          <a href="#preise">Preise</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+        <a class="nav-cta magnetic" href="tel:+491706691739">
+          <svg class="icon" aria-hidden="true"><use href="#i-call" /></svg>
+          Anrufen
+        </a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero section-band">
-        <div class="edge-word edge-left" aria-hidden="true">SUPPORT</div>
-        <div class="edge-word edge-right" aria-hidden="true">WEB · IT · FIX</div>
-        <div class="hero-splash splash-a" aria-hidden="true"></div>
-        <div class="hero-splash splash-b" aria-hidden="true"></div>
-        <div class="hero-copy">
-          <img class="hero-logo reveal" src="logo.png?v=blue-logo-v2" alt="Technik Hilfe Logo" />
-          <p class="eyebrow reveal">Technik Hilfe in Bad Füssing und Umgebung</p>
-          <h1 class="hero-title glitch reveal" data-text="Technik, die einfach läuft.">
-            Technik, die einfach läuft.
-          </h1>
-          <p class="hero-text reveal">
-            Laptop-Akku, Handy-Setup, Router, Cloud, Website oder akute IT-Probleme.
-          </p>
-          <div class="hero-actions reveal">
-            <a class="btn primary magnetic" href="#kontakt">Kontakt</a>
-            <a class="btn ghost magnetic" href="#leistungen">Leistungen ansehen</a>
+    <main>
+      <section id="start" class="hero" data-section>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow reveal">Bad Füssing & Umgebung</p>
+            <h1 class="reveal">Technik, die <span class="accent">einfach läuft.</span></h1>
+            <p class="hero-lead reveal">
+              Zwei persönliche Ansprechpartner für Computer, Smartphone, Router, Smart Home, Websites und technische Probleme.
+            </p>
+            <div class="hero-actions reveal">
+              <a class="button magnetic" href="#kontakt">
+                Kontakt aufnehmen
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="button secondary magnetic" href="#leistungen">Leistungen ansehen</a>
+            </div>
+            <ul class="hero-facts reveal" aria-label="Vorteile">
+              <li>50 € pro Stunde</li>
+              <li>Anfahrt vor Ort kostenlos</li>
+              <li>Für Jung & Alt</li>
+            </ul>
           </div>
-        </div>
 
-        <div class="hero-stage reveal" aria-label="Animierte Technik-Illustration">
-          <div class="liquid-wave wave-top" aria-hidden="true"></div>
-          <div class="liquid-wave wave-bottom" aria-hidden="true"></div>
-          <div class="stage-grid" aria-hidden="true"></div>
-          <div class="orbit-ring ring-one" aria-hidden="true"></div>
-          <div class="orbit-ring ring-two" aria-hidden="true"></div>
-          <div class="orbit-ring ring-three" aria-hidden="true"></div>
-          <div class="signal-beam beam-a" aria-hidden="true"></div>
-          <div class="signal-beam beam-b" aria-hidden="true"></div>
-          <div class="device laptop" aria-hidden="true">
-            <div class="screen">
-              <span class="terminal-line"></span>
-              <span class="terminal-line short"></span>
-              <span class="pulse-dot"></span>
-              <div class="diagnostic-feed">
-                <span data-feed-line>scan /router...</span>
-                <span>akku.status: replaceable</span>
-                <span>website.deploy: ready</span>
+          <div class="device-stage" aria-label="Darstellung verschiedener technischer Geräte">
+            <div class="stage-ring"><span class="stage-dot"></span></div>
+            <div class="status-pill">Systeme bereit</div>
+            <div class="monitor">
+              <div class="monitor-screen">
+                <div class="monitor-top"><i></i><i></i><i></i></div>
+                <div class="monitor-grid">
+                  <div class="screen-panel signal">
+                    <div class="signal-wave"></div>
+                    <div class="screen-copy">
+                      <small>Technik Hilfe</small>
+                      <strong>Problem erkannt</strong>
+                    </div>
+                  </div>
+                  <div class="screen-panel screen-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="screen-panel screen-status"><span></span><span></span><span></span></div>
+                </div>
               </div>
             </div>
-            <div class="keyboard"></div>
+            <div class="monitor-stand"></div>
+            <div class="device-card phone"><svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg>Smartphone</div>
+            <div class="device-card router"><svg class="icon" aria-hidden="true"><use href="#i-router" /></svg>WLAN & Router</div>
+            <div class="device-card laptop"><svg class="icon" aria-hidden="true"><use href="#i-laptop" /></svg>PC & Laptop</div>
           </div>
-          <div class="device phone" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="device router" aria-hidden="true">
-            <i></i>
-            <i></i>
-            <i></i>
-          </div>
-          <div class="status-card card-a" aria-hidden="true">
-            <strong>Immer</strong>
-            <span>für Sie da</span>
-          </div>
-          <div class="status-card card-b" aria-hidden="true">
-            <strong>24h</strong>
-            <span>Antwortfenster</span>
-          </div>
-          <div class="status-card card-c" aria-hidden="true">
-            <strong>Live</strong>
-            <span>Diagnose aktiv</span>
-          </div>
-          <div class="floating-label label-a" aria-hidden="true">Router Setup</div>
-          <div class="floating-label label-b" aria-hidden="true">Akkuwechsel</div>
-          <div class="floating-label label-c" aria-hidden="true">Website</div>
         </div>
       </section>
 
-      <section class="marquee" aria-label="Servicebereiche">
+      <div class="marquee" aria-label="Leistungsübersicht">
         <div class="marquee-track">
-          <div class="marquee-group">
-            <span>Allgemeine Computerhilfe</span>
-            <span>Computer einrichten</span>
-            <span>Windows 11 Update</span>
-            <span>Drucker installieren</span>
-            <span>E-Mail einrichten</span>
-            <span>Software Installation</span>
-            <span>Online-Banking einrichten</span>
-            <span>Router & WLAN</span>
-            <span>Smartphone Hilfe</span>
-            <span>PC Hilfe für Jung & Alt</span>
-            <span>Daten & Sicherung</span>
-            <span>Websites</span>
+          <div class="marquee-set">
+            <span>Computerhilfe</span><span>Windows 11</span><span>Smartphone & Tablet</span><span>WLAN & Router</span><span>Drucker</span><span>Smart Home</span><span>Datensicherung</span><span>Daten sicher löschen</span><span>Software & Updates</span><span>Akku & Aufrüstung</span><span>Websites</span>
           </div>
-          <div class="marquee-group" aria-hidden="true">
-            <span>Allgemeine Computerhilfe</span>
-            <span>Computer einrichten</span>
-            <span>Windows 11 Update</span>
-            <span>Drucker installieren</span>
-            <span>E-Mail einrichten</span>
-            <span>Software Installation</span>
-            <span>Online-Banking einrichten</span>
-            <span>Router & WLAN</span>
-            <span>Smartphone Hilfe</span>
-            <span>PC Hilfe für Jung & Alt</span>
-            <span>Daten & Sicherung</span>
-            <span>Websites</span>
+          <div class="marquee-set" aria-hidden="true">
+            <span>Computerhilfe</span><span>Windows 11</span><span>Smartphone & Tablet</span><span>WLAN & Router</span><span>Drucker</span><span>Smart Home</span><span>Datensicherung</span><span>Daten sicher löschen</span><span>Software & Updates</span><span>Akku & Aufrüstung</span><span>Websites</span>
           </div>
-          <div class="marquee-group" aria-hidden="true">
-            <span>Allgemeine Computerhilfe</span>
-            <span>Computer einrichten</span>
-            <span>Windows 11 Update</span>
-            <span>Drucker installieren</span>
-            <span>E-Mail einrichten</span>
-            <span>Software Installation</span>
-            <span>Online-Banking einrichten</span>
-            <span>Router & WLAN</span>
-            <span>Smartphone Hilfe</span>
-            <span>PC Hilfe für Jung & Alt</span>
-            <span>Daten & Sicherung</span>
-            <span>Websites</span>
+        </div>
+      </div>
+
+      <section id="leistungen" class="section services" data-section>
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow reveal">Was wir lösen</p>
+              <h2 class="reveal">Ein Kontakt für Ihre ganze Technik.</h2>
+            </div>
+            <p class="reveal">Vom kleinen Handgriff bis zur kompletten Einrichtung: verständlich erklärt und sauber umgesetzt.</p>
           </div>
-          <div class="marquee-group" aria-hidden="true">
-            <span>Allgemeine Computerhilfe</span>
-            <span>Computer einrichten</span>
-            <span>Windows 11 Update</span>
-            <span>Drucker installieren</span>
-            <span>E-Mail einrichten</span>
-            <span>Software Installation</span>
-            <span>Online-Banking einrichten</span>
-            <span>Router & WLAN</span>
-            <span>Smartphone Hilfe</span>
-            <span>PC Hilfe für Jung & Alt</span>
-            <span>Daten & Sicherung</span>
-            <span>Websites</span>
+
+          <div class="service-grid">
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-tools" /></svg></span><span class="service-index">01</span></div><h3>Allgemeine Computerhilfe</h3><p>Fehler finden, Fragen klären, Updates durchführen und Geräte wieder zuverlässig nutzbar machen.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-laptop" /></svg></span><span class="service-index">02</span></div><h3>PC & Laptop einrichten</h3><p>Benutzer, Programme, Internet, Drucker und Sicherheit vollständig startklar einrichten.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-monitor" /></svg></span><span class="service-index">03</span></div><h3>Windows 11 & Neuinstallation</h3><p>Saubere Neuinstallation, Datenübernahme und Aktualisierung auf den neuesten Stand.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-phone" /></svg></span><span class="service-index">04</span></div><h3>Smartphone & Tablet</h3><p>Einrichtung, Apps, Konten, Fotos, Datenübertragung und verständliche Bedienung.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-router" /></svg></span><span class="service-index">05</span></div><h3>WLAN & Router</h3><p>Router, Mesh, Repeater, Telefonie und stabile Verbindung in Haus oder Wohnung.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-printer" /></svg></span><span class="service-index">06</span></div><h3>Drucker & Scanner</h3><p>Geräte verbinden, Treiber installieren und Drucken über WLAN zuverlässig einrichten.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-home" /></svg></span><span class="service-index">07</span></div><h3>Smart Home & Fernseher</h3><p>Fernseher, Streaming, Sprachsteuerung und vernetzte Geräte sinnvoll einrichten.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-tools" /></svg></span><span class="service-index">08</span></div><h3>Mähroboter & Geräte</h3><p>Technische Alltagsgeräte installieren, verbinden und gemeinsam in Betrieb nehmen.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-database" /></svg></span><span class="service-index">09</span></div><h3>Daten & Sicherung</h3><p>Fotos und Dokumente sichern, übertragen, sortieren oder nach Möglichkeit wiederherstellen.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-shield" /></svg></span><span class="service-index">10</span></div><h3>E-Mail & Online-Banking</h3><p>Konten, Banking-Apps, TAN-Verfahren und sicheren Zugang ruhig und nachvollziehbar einrichten.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-globe" /></svg></span><span class="service-index">11</span></div><h3>Websites</h3><p>Moderne Onepager und kleine Firmenwebsites inklusive Pflege und technischer Optimierung.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-user" /></svg></span><span class="service-index">12</span></div><h3>Unterstützung fürs Gewerbe</h3><p>Arbeitsplätze, Geräte, Programme und laufende technische Betreuung für kleine Betriebe.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-database" /></svg></span><span class="service-index">13</span></div><h3>Daten & Festplatten sicher löschen</h3><p>Alte Geräte weitergeben oder verkaufen: Wir löschen persönliche Daten sicher und nachvollziehbar.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-tools" /></svg></span><span class="service-index">14</span></div><h3>Software installieren & aktualisieren</h3><p>Programme installieren, aktivieren, aktualisieren und anschließend verständlich erklären.</p></article>
+            <article class="service-card reveal"><div class="service-top"><span class="service-icon"><svg class="icon"><use href="#i-laptop" /></svg></span><span class="service-index">15</span></div><h3>Laptop-Akku, Speicher & Aufrüstung</h3><p>Akkus, SSDs, RAM und sinnvolle Upgrades austauschen oder nachrüsten, damit Geräte wieder flott laufen.</p></article>
           </div>
         </div>
       </section>
 
-      <section class="impact-strip section-band" aria-label="Kurzprofil">
-        <div class="impact-item reveal">
-          <strong>2 Ansprechpartner</strong>
-          <span>für Geräte, Netzwerk, Web und Support</span>
-        </div>
-        <div class="impact-item reveal">
-          <strong>Direkt + Vor Ort</strong>
-          <span>flexibel, klar und ohne Warteschleife</span>
-        </div>
-        <div class="impact-item reveal">
-          <strong>Privat + Gewerbe</strong>
-          <span>vom Akkuwechsel bis zur Firmenwebsite</span>
-        </div>
-      </section>
-
-      <section class="wide-motion" aria-label="Full-Service Panorama">
-        <div class="wide-word" aria-hidden="true">ALLES LÄUFT</div>
-        <div class="wide-lane lane-one">
-          <span>Laptop Akku</span>
-          <span>WLAN</span>
-          <span>Website</span>
-          <span>Sicherung</span>
-          <span>Smartphone</span>
-        </div>
-        <div class="wide-lane lane-two">
-          <span>Microsoft 365</span>
-          <span>Router</span>
-          <span>Schnelle Hilfe</span>
-          <span>SSD Upgrade</span>
-          <span>Security</span>
-        </div>
-        <div class="wide-device wide-laptop" aria-hidden="true">
-          <i></i>
-          <i></i>
-          <i></i>
-        </div>
-        <div class="wide-device wide-router" aria-hidden="true">
-          <i></i>
-          <i></i>
-        </div>
-        <div class="wide-device wide-monitor" aria-hidden="true">
-          <i></i>
-          <i></i>
-        </div>
-        <div class="wide-device wide-phone" aria-hidden="true">
-          <i></i>
-          <i></i>
-          <i></i>
-        </div>
-      </section>
-
-      <section class="scroll-showcase" aria-label="Support in Bewegung">
-        <div class="showcase-sticky">
+      <section class="showcase" aria-label="Arbeitsweise">
+        <div class="showcase-inner">
           <div class="showcase-copy">
-            <p class="eyebrow reveal">Scroll durch den Service</p>
-            <h2 class="reveal">Von Problem zu Lösung, ohne Umwege.</h2>
+            <p class="eyebrow reveal">Persönlich statt kompliziert</p>
+            <h2 class="reveal">Wir übersetzen Technik in Lösungen.</h2>
+            <div class="showcase-points reveal"><span>Direkte Ansprechpartner</span><span>Hilfe vor Ort oder telefonisch</span><span>Für Privatkunden und Gewerbe</span></div>
           </div>
-          <div class="showcase-visual" aria-hidden="true">
-            <div class="support-pack">
-              <span class="pack-cap"></span>
-              <span class="pack-screen"></span>
-              <span class="pack-line one"></span>
-              <span class="pack-line two"></span>
-              <span class="pack-dot"></span>
-              <svg class="network-sketch" viewBox="0 0 420 420" focusable="false">
-                <path class="net-line net-monitor" d="M78 78 Q78 68 88 68 H184 Q194 68 194 78 V138 Q194 148 184 148 H88 Q78 148 78 138 Z M113 165 H159 M136 148 V165" />
-                <path class="net-line net-phone" d="M287 72 Q287 62 298 62 H342 Q353 62 353 72 V159 Q353 170 342 170 H298 Q287 170 287 159 Z M306 83 H335 M313 150 H327" />
-                <path class="net-line net-wifi-one" d="M150 236 C181 209 239 209 270 236" />
-                <path class="net-line net-wifi-two" d="M171 259 C193 243 227 243 249 259" />
-                <path class="net-line net-wifi-dot" d="M209 276 h2" />
-                <path class="net-line net-router" d="M105 306 H315 Q326 306 326 318 V359 Q326 371 315 371 H105 Q94 371 94 359 V318 Q94 306 105 306 Z" />
-                <path class="net-line net-router-details" d="M122 340 H206 M238 340 H258 M278 340 H292 M143 306 V268 M277 306 V268" />
-              </svg>
-              <span class="network-pencil">
-                <i></i>
-              </span>
-            </div>
-          </div>
-          <div class="showcase-panels">
-            <article class="motion-panel reveal" data-motion-card>
-              <span>01</span>
-              <h3>Fehler finden</h3>
-              <p>Wir prüfen Gerät, Netzwerk oder Website klar und nachvollziehbar.</p>
-            </article>
-            <article class="motion-panel reveal" data-motion-card>
-              <span>02</span>
-              <h3>Sauber lösen</h3>
-              <p>Telefonisch oder vor Ort: keine Ratespiele, sondern konkrete Schritte.</p>
-            </article>
-            <article class="motion-panel reveal" data-motion-card>
-              <span>03</span>
-              <h3>Stabil machen</h3>
-              <p>Updates, Sicherung, Sicherheit und Dokumentation, damit es ruhig bleibt.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="leistungen" class="section services">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Was du bekommst</p>
-          <h2>Technikservice ohne Warteschleife.</h2>
-        </div>
-        <div class="sketch-pad" aria-hidden="true">
-          <svg class="laptop-sketch people-sketch" viewBox="0 0 360 220" focusable="false">
-            <path class="sketch-line line-head-left" d="M76 61 C76 40 93 24 115 24 C137 24 154 40 154 61 C154 82 137 98 115 98 C93 98 76 82 76 61 Z" />
-            <path class="sketch-line line-face-left" d="M101 58 H102 M127 58 H128 M104 75 C112 82 124 82 132 75" />
-            <path class="sketch-line line-head-right" d="M206 61 C206 40 223 24 245 24 C267 24 284 40 284 61 C284 82 267 98 245 98 C223 98 206 82 206 61 Z" />
-            <path class="sketch-line line-face-right" d="M231 58 H232 M257 58 H258 M234 75 C242 82 254 82 262 75" />
-            <path class="sketch-line line-body-left" d="M58 194 C63 145 85 112 116 112 C147 112 169 145 174 194 Z" />
-            <path class="sketch-line line-body-right" d="M186 194 C191 145 213 112 244 112 C275 112 297 145 302 194 Z" />
-            <path class="sketch-line line-spark" d="M180 63 V83 M165 73 H195 M180 134 V154" />
-          </svg>
-          <span class="sketch-pencil">
-            <i></i>
-          </span>
-        </div>
-        <div class="service-grid">
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">01</span>
-            <h3>Allgemeine Computerhilfe</h3>
-            <p>Wir helfen bei Fehlern, Fragen, Updates und allem, was am PC gerade nervt.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">02</span>
-            <h3>Computer einrichten</h3>
-            <p>Neuer PC oder Laptop: Benutzer, Programme, Internet, Drucker und Sicherheit.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">03</span>
-            <h3>Computer neu installieren</h3>
-            <p>Saubere Neuinstallation, Datenübernahme und Update auf Windows 11 bzw. neuesten Stand.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">04</span>
-            <h3>Daten & Festplatten löschen</h3>
-            <p>Alte Geräte abgeben oder verkaufen: wir löschen Daten sicher und nachvollziehbar.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">05</span>
-            <h3>Drucker installieren</h3>
-            <p>Drucker, Scanner, WLAN-Druck und Treiber sauber einrichten.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">06</span>
-            <h3>E-Mail einrichten</h3>
-            <p>Outlook, Mail-Apps, Konten, Signaturen und Synchronisierung auf allen Geräten.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">07</span>
-            <h3>Software installieren</h3>
-            <p>Programme installieren, aktivieren, aktualisieren und verständlich erklären.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">08</span>
-            <h3>Online-Banking einrichten</h3>
-            <p>Banking-App, TAN-Verfahren und Browserzugang ruhig und sicher einrichten.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">09</span>
-            <h3>Router einrichten</h3>
-            <p>Fritzbox, Telekom, Vodafone, Internetzugang, Telefonie und Grundeinstellungen.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">10</span>
-            <h3>WLAN einrichten</h3>
-            <p>WLAN, Mesh, Repeater und stabile Verbindung in Haus oder Wohnung.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">11</span>
-            <h3>Smartphone & Tablet</h3>
-            <p>Einrichtung, Datenübertragung, Apps, Konten, Fotos und Sicherungen.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">12</span>
-            <h3>PC Hilfe für Jung & Alt</h3>
-            <p>Geduldige Hilfe, für alle Altersgruppen und Schritt für Schritt.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">13</span>
-            <h3>Daten & Sicherung</h3>
-            <p>Datensicherung, Cloud, externe Festplatten und Wiederherstellung im Alltag.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">14</span>
-            <h3>Laptop-Akku & Aufrüstung</h3>
-            <p>Akku, SSD, RAM und sinnvolle Upgrades, damit Geräte wieder flott laufen.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">15</span>
-            <h3>Smart-Home & Geräte</h3>
-            <p>Fernseher, Smart-Home, Rasenmäherroboter und vieles mehr einrichten.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-sheen" aria-hidden="true"></span>
-            <span class="icon" aria-hidden="true">16</span>
-            <h3>Websites</h3>
-            <p>Moderne Onepager, kleine Firmenwebsites, Pflege und technische Optimierung.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="ablauf" class="section process">
-        <div class="process-panel reveal">
-          <p class="eyebrow">So läuft es</p>
-          <h2>Kontakt aufnehmen. Problem zeigen. Lösung bekommen.</h2>
-          <div class="timeline">
-            <div>
-              <span>1</span>
-              <strong>Kontakt aufnehmen</strong>
-            </div>
-            <div>
-              <span>2</span>
-              <strong>Problem zeigen</strong>
-            </div>
-            <div>
-              <span>3</span>
-              <strong>Lösung bekommen</strong>
-            </div>
-          </div>
-        </div>
-        <div class="quote-panel reveal">
-          <p>
-            "Technik soll sich anfühlen wie ein Werkzeug, nicht wie ein Rätsel."
-          </p>
-        </div>
-      </section>
-
-      <section id="preise" class="section prices">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Preise</p>
-          <h2>Klare Kosten. Ohne unnötige Unsicherheit.</h2>
-        </div>
-        <div class="price-grid">
-          <article class="price-card reveal">
-            <span>Kostenlos</span>
-            <strong>Erster Kontakt</strong>
-            <p>Anruf, WhatsApp oder E-Mail: kurz schildern, worum es geht. Das erste Einordnen kostet nichts.</p>
-          </article>
-          <article class="price-card featured reveal">
-            <span>50€</span>
-            <strong>pro Stunde</strong>
-            <p>Vor-Ort-Unterstützung, Einrichtung, Prüfung und Hilfe bei Ihren technischen Geräten.</p>
-          </article>
-          <article class="price-card reveal">
-            <span>Anfahrt</span>
-            <strong>Bad Füssing & Umgebung kostenlos</strong>
-            <p>In Bad Füssing und Umgebung berechnen wir keine Anfahrt.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="kontakt" class="section contact">
-        <div class="contact-copy reveal">
-          <p class="eyebrow">Bereit, wenn Technik nervt</p>
-          <h2>Schreib uns, was nicht läuft.</h2>
-          <div class="contact-facts" aria-label="Standort und Preis">
-            <span>Bad Füssing</span>
-            <strong>50 EUR / Stunde</strong>
-          </div>
-        </div>
-        <div class="contact-stack">
-          <div class="contact-methods reveal" aria-label="Kontaktmöglichkeiten">
-            <a class="contact-method magnetic" href="tel:+491706691739">
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M6.6 3.8 4.5 5.9c-.8.8-.7 3.6 2.6 7 3.4 3.4 6.2 3.5 7 2.7l2.1-2.1-3.1-3.1-1.7 1.7c-.4.4-1.7-.2-2.8-1.3-1.1-1.1-1.7-2.4-1.3-2.8L9 6.9 6.6 3.8Z" />
-                  <path d="M14.4 4.4c2.7.7 4.6 2.6 5.2 5.2" />
-                  <path d="M14.7 7.9c1.1.4 1.9 1.2 2.3 2.3" />
-                </svg>
-              </span>
-              <span>Anruf</span>
-              <strong>Direkt sprechen</strong>
-              <small>+49 170 6691739</small>
-            </a>
-            <a class="contact-method magnetic" href="https://wa.me/491706691739" target="_blank" rel="noopener noreferrer">
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M5.1 18.9 6 15.5a7.4 7.4 0 1 1 2.6 2.5l-3.5.9Z" />
-                  <path d="M8.8 9.1c.3 2.7 2.4 4.7 5.1 5.2" />
-                  <path d="M9.1 9.1h1.6l.5 1.4-.9.7" />
-                  <path d="m13 13.8.7-.9 1.4.5v1.5" />
-                </svg>
-              </span>
-              <span>WhatsApp</span>
-              <strong>Schnell schreiben</strong>
-              <small>Antwort so bald wie möglich</small>
-            </a>
-            <a class="contact-method magnetic" href="mailto:technikhilfe.bruckmeier85@gmail.com">
-              <span class="contact-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M4.5 6.5h15v11h-15Z" />
-                  <path d="m5.2 7.2 6.8 5.2 6.8-5.2" />
-                  <path d="m8.7 11.4-3.5 4" />
-                  <path d="m15.3 11.4 3.5 4" />
-                </svg>
-              </span>
-              <span>E-Mail</span>
-              <strong>Problem schildern</strong>
-              <small>technikhilfe.bruckmeier85@gmail.com</small>
-            </a>
-          </div>
-          <div class="profile-grid reveal" aria-label="Ansprechpartner">
-            <article class="profile-card">
-              <span class="profile-avatar" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M12 12.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
-                  <path d="M4.7 20.2c.9-4 3.5-6 7.3-6s6.4 2 7.3 6" />
-                </svg>
-              </span>
-              <div>
-                <strong>Moritz Bruckmeier</strong>
-                <small>Geschäftsführer</small>
+          <div class="diagnostic">
+            <div class="scan-line"></div>
+            <div class="diagnostic-core reveal">
+              <div class="diagnostic-device"><svg class="icon" aria-hidden="true"><use href="#i-laptop" /></svg></div>
+              <div class="diagnostic-output" aria-live="polite"><span class="diagnostic-label">Status</span><strong>Computer wird wieder startklar.</strong></div>
+              <div class="diagnostic-tabs" aria-label="Beispiele auswählen">
+                <button class="is-active" type="button" data-icon="i-laptop" data-output="Computer wird wieder startklar.">Computer</button>
+                <button type="button" data-icon="i-router" data-output="WLAN erreicht wieder jedes Zimmer.">WLAN</button>
+                <button type="button" data-icon="i-phone" data-output="Smartphone ist vollständig eingerichtet.">Smartphone</button>
               </div>
-            </article>
-            <article class="profile-card">
-              <span class="profile-avatar" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="M12 12.2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
-                  <path d="M4.7 20.2c.9-4 3.5-6 7.3-6s6.4 2 7.3 6" />
-                </svg>
-              </span>
-              <div>
-                <strong>Elias Bruckmeier</strong>
-                <small>Geschäftsführer</small>
-              </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section legal-section" aria-label="Impressum und Datenschutz">
+      <section id="ablauf" class="section process" data-section>
+        <div class="section-inner">
+          <div class="section-head">
+            <div><p class="eyebrow reveal">So läuft es ab</p><h2 class="reveal">Drei Schritte. Fertig.</h2></div>
+          </div>
+          <div class="process-grid">
+            <article class="process-step reveal"><h3>Kontakt aufnehmen</h3><p>Per Anruf, WhatsApp oder E-Mail. Der erste Kontakt und die Einordnung sind kostenlos.</p></article>
+            <article class="process-step reveal"><h3>Problem zeigen</h3><p>Wir klären, ob wir telefonisch helfen können oder direkt zu Ihnen nach Bad Füssing und Umgebung kommen.</p></article>
+            <article class="process-step reveal"><h3>Lösung bekommen</h3><p>Wir setzen die Lösung um, erklären die wichtigsten Schritte und hinterlassen alles sauber eingerichtet.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="preise" class="section price" data-section>
+        <div class="section-inner price-layout">
+          <div class="price-copy">
+            <p class="eyebrow reveal">Fair & transparent</p>
+            <h2 class="reveal">Klare Kosten. Keine Überraschung.</h2>
+            <p class="reveal">Sie wissen vorher, womit Sie rechnen können. Der erste Kontakt ist kostenlos und unverbindlich.</p>
+          </div>
+          <div class="price-board reveal">
+            <div class="price-main"><strong>50 €</strong><span>pro Stunde</span></div>
+            <div class="price-details">
+              <div class="price-detail"><small>Kostenlos</small><strong>Erster Kontakt & Einordnung</strong></div>
+              <div class="price-detail"><small>Ebenfalls kostenlos</small><strong>Anfahrt in Bad Füssing & Umgebung</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section team" aria-label="Ihre Ansprechpartner">
+        <div class="section-inner team-layout">
+          <div class="team-intro">
+            <p class="eyebrow reveal">Ihre Ansprechpartner</p>
+            <h2 class="reveal">Zwei Köpfe. Ein Versprechen.</h2>
+            <p class="reveal">Wir kümmern uns persönlich darum, dass Ihre Technik zuverlässig funktioniert und verständlich bleibt.</p>
+          </div>
+          <div class="team-grid">
+            <article class="person reveal"><div class="person-figure" aria-hidden="true"><span class="person-head"></span><span class="person-body"></span></div><div class="person-info"><strong>Moritz Bruckmeier</strong><span>Geschäftsführer</span></div></article>
+            <article class="person reveal"><div class="person-figure" aria-hidden="true"><span class="person-head"></span><span class="person-body"></span></div><div class="person-info"><strong>Elias Bruckmeier</strong><span>Geschäftsführer</span></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontakt" class="section contact" data-section>
+        <div class="contact-panel">
+          <div class="contact-top">
+            <div class="contact-copy"><p class="eyebrow reveal">Technik macht Probleme?</p><h2 class="reveal">Jetzt Kontakt aufnehmen.</h2></div>
+            <p class="reveal">Beschreiben Sie kurz, worum es geht. Wir melden uns persönlich und sagen Ihnen ehrlich, wie wir helfen können.</p>
+          </div>
+          <div class="contact-grid">
+            <a class="contact-method reveal" href="tel:+491706691739"><span class="contact-method-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-call" /></svg></span><span>Anruf</span><strong>Direkt sprechen</strong><small>+49 170 6691739</small></a>
+            <a class="contact-method reveal" href="https://wa.me/491706691739" target="_blank" rel="noopener noreferrer"><span class="contact-method-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-whatsapp" /></svg></span><span>WhatsApp</span><strong>Nachricht senden</strong><small>Wir antworten so bald wie möglich.</small></a>
+            <a class="contact-method reveal" href="mailto:technikhilfe.bruckmeier85@gmail.com"><span class="contact-method-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail" /></svg></span><span>E-Mail</span><strong>Problem schildern</strong><small>technikhilfe.bruckmeier85@gmail.com</small></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="legal" aria-label="Rechtliche Informationen">
         <div class="legal-grid">
-          <details id="impressum" class="legal-card reveal">
-            <summary>
-              <span>Impressum</span>
-              <strong>Angaben gemäß § 5 DDG</strong>
-            </summary>
+          <details id="impressum" class="legal-card">
+            <summary><span>Impressum</span><strong>Angaben gemäß § 5 DDG</strong></summary>
             <div class="legal-content">
-          <p>
-            Technikhilfe Bruckmeier GbR<br />
-            Moritz Bruckmeier & Elias Bruckmeier<br />
-            Hart 30<br />
-            94072 Bad Füssing<br />
-            Deutschland
-          </p>
-          <p>
-            Telefon: <a href="tel:+491706691739">+49 170 6691739</a><br />
-            E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
-          </p>
-          <p>Vertreten durch: Moritz Bruckmeier und Elias Bruckmeier</p>
-          <p>
-            Umsatzsteuer: Umsatzsteuer wird aufgrund der Kleinunternehmerregelung gemäß § 19 UStG nicht ausgewiesen.
-          </p>
-          <h3>Haftung für Inhalte</h3>
-          <p>
-            Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
-            Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach
-            Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
-          </p>
-          <h3>Haftung für Links</h3>
-          <p>
-            Unsere Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte wir keinen Einfluss haben.
-            Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten
-            ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
-          </p>
-          <h3>Urheberrecht</h3>
-          <p>
-            Die durch uns erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Beiträge
-            Dritter werden als solche gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-            Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors
-            bzw. Erstellers.
-          </p>
+              <p>Technikhilfe Bruckmeier GbR<br />Moritz Bruckmeier & Elias Bruckmeier<br />Hart 30<br />94072 Bad Füssing<br />Deutschland</p>
+              <p>Telefon: <a href="tel:+491706691739">+49 170 6691739</a><br />E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a></p>
+              <p>Vertreten durch: Moritz Bruckmeier und Elias Bruckmeier</p>
+              <p>Umsatzsteuer wird aufgrund der Kleinunternehmerregelung gemäß § 19 UStG nicht ausgewiesen.</p>
+              <h3>Haftung für Inhalte</h3>
+              <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+              <h3>Haftung für Links</h3>
+              <p>Unsere Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
+              <h3>Urheberrecht</h3>
+              <p>Die durch uns erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Beiträge Dritter werden als solche gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
             </div>
           </details>
 
-          <details id="datenschutz" class="legal-card reveal">
-            <summary>
-              <span>Datenschutz</span>
-              <strong>Datenschutzerklärung</strong>
-            </summary>
+          <details id="datenschutz" class="legal-card">
+            <summary><span>Datenschutz</span><strong>Datenschutzerklärung</strong></summary>
             <div class="legal-content">
-          <p>
-            Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer personenbezogenen Daten ist uns wichtig.
-            Nachfolgend informieren wir darüber, welche Daten beim Besuch unserer Website und bei der Kontaktaufnahme mit uns
-            verarbeitet werden.
-          </p>
-          <h3>1. Verantwortlicher</h3>
-          <p>
-            Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
-            Technikhilfe Bruckmeier GbR<br />
-            Moritz Bruckmeier & Elias Bruckmeier<br />
-            Hart 30<br />
-            94072 Bad Füssing<br />
-            Deutschland<br />
-            Telefon: <a href="tel:+491706691739">+49 170 6691739</a><br />
-            E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
-          </p>
-          <h3>2. Allgemeine Hinweise zur Datenverarbeitung</h3>
-          <p>
-            Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Website, zur Bearbeitung von
-            Anfragen oder zur Durchführung unserer Leistungen erforderlich ist. Personenbezogene Daten sind alle Informationen,
-            mit denen eine Person direkt oder indirekt identifiziert werden kann, zum Beispiel Name, Adresse, Telefonnummer,
-            E-Mail-Adresse oder IP-Adresse.
-          </p>
-          <h3>3. Besuch unserer Website</h3>
-          <p>
-            Unsere Website wird als statische Website über GitHub Pages bereitgestellt. Beim Aufruf der Website können technisch
-            notwendige Daten verarbeitet werden, damit die Website angezeigt werden kann. Dazu können insbesondere folgende Daten
-            gehören: IP-Adresse des verwendeten Endgeräts, Datum und Uhrzeit des Zugriffs, aufgerufene Seite oder Datei,
-            verwendeter Browser und Betriebssystem, Referrer-URL, sofern übermittelt.
-          </p>
-          <p>
-            Die Verarbeitung dieser Daten erfolgt, um die Website technisch bereitzustellen, die Sicherheit des Angebots zu
-            gewährleisten und eine fehlerfreie Darstellung zu ermöglichen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
-            Unser berechtigtes Interesse liegt in der sicheren und zuverlässigen Bereitstellung unserer Website.
-          </p>
-          <p>
-            GitHub kann als Anbieter der technischen Infrastruktur ebenfalls personenbezogene Daten verarbeiten. Anbieter ist
-            GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Weitere Informationen zur Datenverarbeitung
-            durch GitHub finden Sie in der Datenschutzerklärung von GitHub.
-          </p>
-          <h3>4. Kontaktaufnahme per E-Mail</h3>
-          <p>
-            Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten, zum Beispiel Ihre
-            E-Mail-Adresse, Ihren Namen, den Inhalt Ihrer Nachricht und gegebenenfalls weitere von Ihnen angegebene Kontaktdaten.
-            Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfrage und zur weiteren Kommunikation mit Ihnen.
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage mit einer gewünschten Leistung oder einem
-            Vertragsverhältnis zusammenhängt. In anderen Fällen ist Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes
-            Interesse liegt in der Beantwortung Ihrer Anfrage.
-          </p>
-          <h3>5. Kontaktaufnahme per Telefon</h3>
-          <p>
-            Wenn Sie uns telefonisch kontaktieren, können Ihre Telefonnummer, Ihr Name sowie die Inhalte des Gesprächs verarbeitet
-            werden, soweit dies zur Bearbeitung Ihres Anliegens erforderlich ist. Die Verarbeitung erfolgt zur Beantwortung Ihrer
-            Anfrage, zur Terminvereinbarung und gegebenenfalls zur Durchführung unserer Leistungen. Rechtsgrundlage ist Art. 6
-            Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO.
-          </p>
-          <h3>6. Kontaktaufnahme per WhatsApp</h3>
-          <p>
-            Unsere Website enthält eine Möglichkeit, uns über WhatsApp zu kontaktieren. Wenn Sie WhatsApp nutzen, gelten zusätzlich
-            die Datenschutzbestimmungen von WhatsApp. Dabei können personenbezogene Daten wie Ihre Telefonnummer, Ihr Profilname,
-            Nachrichteninhalte, Kommunikationsdaten und technische Daten durch WhatsApp verarbeitet werden. Anbieter von WhatsApp
-            ist WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland. WhatsApp kann Daten auch
-            an Unternehmen der Meta-Gruppe und in Länder außerhalb der Europäischen Union übermitteln. Bitte nutzen Sie WhatsApp
-            nur, wenn Sie mit der dortigen Datenverarbeitung einverstanden sind. Wir verwenden die über WhatsApp erhaltenen Daten
-            ausschließlich zur Bearbeitung Ihrer Anfrage und zur Kommunikation mit Ihnen.
-          </p>
-          <h3>7. Keine Kontaktformulare</h3>
-          <p>
-            Auf unserer Website verwenden wir derzeit kein Kontaktformular. Eine Kontaktaufnahme erfolgt ausschließlich über die
-            angegebenen Kontaktmöglichkeiten wie Telefon, E-Mail oder WhatsApp.
-          </p>
-          <h3>8. Keine Cookies und kein Tracking</h3>
-          <p>
-            Unsere Website verwendet derzeit keine eigenen Cookies, keine Analyse-Tools wie Google Analytics, keine Werbe- oder
-            Marketing-Tracker und keine Social-Media-Plugins. Es werden von uns keine Nutzerprofile erstellt.
-          </p>
-          <h3>9. Keine eingebetteten externen Inhalte</h3>
-          <p>
-            Auf unserer Website verwenden wir derzeit keine eingebetteten Google Maps, YouTube-Videos oder vergleichbare externen
-            Inhalte. Die auf der Website dargestellten Bilder und Grafiken werden lokal eingebunden.
-          </p>
-          <h3>10. Speicherdauer</h3>
-          <p>
-            Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist. Daten aus Anfragen
-            speichern wir so lange, wie dies zur Bearbeitung der Anfrage, zur Durchführung unserer Leistungen oder aufgrund
-            gesetzlicher Aufbewahrungspflichten erforderlich ist. Geschäfts- und steuerrelevante Unterlagen, zum Beispiel Rechnungen,
-            können aufgrund gesetzlicher Aufbewahrungspflichten länger gespeichert werden.
-          </p>
-          <h3>11. Weitergabe von Daten</h3>
-          <p>
-            Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nicht ohne rechtliche Grundlage. Eine Weitergabe kann
-            erforderlich sein, wenn dies zur Vertragserfüllung, zur Erfüllung gesetzlicher Pflichten oder zur technischen
-            Bereitstellung der Website notwendig ist.
-          </p>
-          <h3>12. Ihre Rechte</h3>
-          <p>
-            Sie haben im Rahmen der gesetzlichen Voraussetzungen folgende Rechte: Recht auf Auskunft über die bei uns gespeicherten
-            personenbezogenen Daten, Recht auf Berichtigung unrichtiger Daten, Recht auf Löschung Ihrer Daten, Recht auf
-            Einschränkung der Verarbeitung, Recht auf Datenübertragbarkeit, Recht auf Widerspruch gegen bestimmte Verarbeitungen,
-            Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft. Zur Ausübung Ihrer Rechte können Sie sich
-            jederzeit an uns wenden: technikhilfe.bruckmeier85@gmail.com
-          </p>
-          <h3>13. Beschwerderecht bei einer Aufsichtsbehörde</h3>
-          <p>
-            Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt, haben
-            Sie das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Zuständig ist in Bayern insbesondere:
-            Bayerisches Landesamt für Datenschutzaufsicht, Promenade 18, 91522 Ansbach, Deutschland.
-          </p>
-          <h3>14. Änderungen dieser Datenschutzerklärung</h3>
-          <p>
-            Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich unsere Website, unsere Kontaktmöglichkeiten
-            oder die rechtlichen Anforderungen ändern. Stand: Mai 2026
-          </p>
+              <p>
+                Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer personenbezogenen Daten ist uns wichtig.
+                Nachfolgend informieren wir darüber, welche Daten beim Besuch unserer Website und bei der Kontaktaufnahme mit uns
+                verarbeitet werden.
+              </p>
+              <h3>1. Verantwortlicher</h3>
+              <p>
+                Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
+                Technikhilfe Bruckmeier GbR<br />
+                Moritz Bruckmeier & Elias Bruckmeier<br />
+                Hart 30<br />
+                94072 Bad Füssing<br />
+                Deutschland<br />
+                Telefon: <a href="tel:+491706691739">+49 170 6691739</a><br />
+                E-Mail: <a href="mailto:technikhilfe.bruckmeier85@gmail.com">technikhilfe.bruckmeier85@gmail.com</a>
+              </p>
+              <h3>2. Allgemeine Hinweise zur Datenverarbeitung</h3>
+              <p>
+                Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung dieser Website, zur Bearbeitung von
+                Anfragen oder zur Durchführung unserer Leistungen erforderlich ist. Personenbezogene Daten sind alle Informationen,
+                mit denen eine Person direkt oder indirekt identifiziert werden kann, zum Beispiel Name, Adresse, Telefonnummer,
+                E-Mail-Adresse oder IP-Adresse.
+              </p>
+              <h3>3. Besuch unserer Website</h3>
+              <p>
+                Unsere Website wird als statische Website über GitHub Pages bereitgestellt. Beim Aufruf der Website können technisch
+                notwendige Daten verarbeitet werden, damit die Website angezeigt werden kann. Dazu können insbesondere folgende Daten
+                gehören: IP-Adresse des verwendeten Endgeräts, Datum und Uhrzeit des Zugriffs, aufgerufene Seite oder Datei,
+                verwendeter Browser und Betriebssystem, Referrer-URL, sofern übermittelt.
+              </p>
+              <p>
+                Die Verarbeitung dieser Daten erfolgt, um die Website technisch bereitzustellen, die Sicherheit des Angebots zu
+                gewährleisten und eine fehlerfreie Darstellung zu ermöglichen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+                Unser berechtigtes Interesse liegt in der sicheren und zuverlässigen Bereitstellung unserer Website.
+              </p>
+              <p>
+                GitHub kann als Anbieter der technischen Infrastruktur ebenfalls personenbezogene Daten verarbeiten. Anbieter ist
+                GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Weitere Informationen zur Datenverarbeitung
+                durch GitHub finden Sie in der Datenschutzerklärung von GitHub.
+              </p>
+              <h3>4. Kontaktaufnahme per E-Mail</h3>
+              <p>
+                Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten, zum Beispiel Ihre
+                E-Mail-Adresse, Ihren Namen, den Inhalt Ihrer Nachricht und gegebenenfalls weitere von Ihnen angegebene Kontaktdaten.
+                Diese Daten verwenden wir ausschließlich zur Bearbeitung Ihrer Anfrage und zur weiteren Kommunikation mit Ihnen.
+                Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage mit einer gewünschten Leistung oder einem
+                Vertragsverhältnis zusammenhängt. In anderen Fällen ist Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes
+                Interesse liegt in der Beantwortung Ihrer Anfrage.
+              </p>
+              <h3>5. Kontaktaufnahme per Telefon</h3>
+              <p>
+                Wenn Sie uns telefonisch kontaktieren, können Ihre Telefonnummer, Ihr Name sowie die Inhalte des Gesprächs verarbeitet
+                werden, soweit dies zur Bearbeitung Ihres Anliegens erforderlich ist. Die Verarbeitung erfolgt zur Beantwortung Ihrer
+                Anfrage, zur Terminvereinbarung und gegebenenfalls zur Durchführung unserer Leistungen. Rechtsgrundlage ist Art. 6
+                Abs. 1 lit. b DSGVO oder Art. 6 Abs. 1 lit. f DSGVO.
+              </p>
+              <h3>6. Kontaktaufnahme per WhatsApp</h3>
+              <p>
+                Unsere Website enthält eine Möglichkeit, uns über WhatsApp zu kontaktieren. Wenn Sie WhatsApp nutzen, gelten zusätzlich
+                die Datenschutzbestimmungen von WhatsApp. Dabei können personenbezogene Daten wie Ihre Telefonnummer, Ihr Profilname,
+                Nachrichteninhalte, Kommunikationsdaten und technische Daten durch WhatsApp verarbeitet werden. Anbieter von WhatsApp
+                ist WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland. WhatsApp kann Daten auch
+                an Unternehmen der Meta-Gruppe und in Länder außerhalb der Europäischen Union übermitteln. Bitte nutzen Sie WhatsApp
+                nur, wenn Sie mit der dortigen Datenverarbeitung einverstanden sind. Wir verwenden die über WhatsApp erhaltenen Daten
+                ausschließlich zur Bearbeitung Ihrer Anfrage und zur Kommunikation mit Ihnen.
+              </p>
+              <h3>7. Keine Kontaktformulare</h3>
+              <p>
+                Auf unserer Website verwenden wir derzeit kein Kontaktformular. Eine Kontaktaufnahme erfolgt ausschließlich über die
+                angegebenen Kontaktmöglichkeiten wie Telefon, E-Mail oder WhatsApp.
+              </p>
+              <h3>8. Keine Cookies und kein Tracking</h3>
+              <p>
+                Unsere Website verwendet derzeit keine eigenen Cookies, keine Analyse-Tools wie Google Analytics, keine Werbe- oder
+                Marketing-Tracker und keine Social-Media-Plugins. Es werden von uns keine Nutzerprofile erstellt.
+              </p>
+              <h3>9. Keine eingebetteten externen Inhalte</h3>
+              <p>
+                Auf unserer Website verwenden wir derzeit keine eingebetteten Google Maps, YouTube-Videos oder vergleichbare externen
+                Inhalte. Die auf der Website dargestellten Bilder und Grafiken werden lokal eingebunden.
+              </p>
+              <h3>10. Speicherdauer</h3>
+              <p>
+                Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist. Daten aus Anfragen
+                speichern wir so lange, wie dies zur Bearbeitung der Anfrage, zur Durchführung unserer Leistungen oder aufgrund
+                gesetzlicher Aufbewahrungspflichten erforderlich ist. Geschäfts- und steuerrelevante Unterlagen, zum Beispiel Rechnungen,
+                können aufgrund gesetzlicher Aufbewahrungspflichten länger gespeichert werden.
+              </p>
+              <h3>11. Weitergabe von Daten</h3>
+              <p>
+                Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nicht ohne rechtliche Grundlage. Eine Weitergabe kann
+                erforderlich sein, wenn dies zur Vertragserfüllung, zur Erfüllung gesetzlicher Pflichten oder zur technischen
+                Bereitstellung der Website notwendig ist.
+              </p>
+              <h3>12. Ihre Rechte</h3>
+              <p>
+                Sie haben im Rahmen der gesetzlichen Voraussetzungen folgende Rechte: Recht auf Auskunft über die bei uns gespeicherten
+                personenbezogenen Daten, Recht auf Berichtigung unrichtiger Daten, Recht auf Löschung Ihrer Daten, Recht auf
+                Einschränkung der Verarbeitung, Recht auf Datenübertragbarkeit, Recht auf Widerspruch gegen bestimmte Verarbeitungen,
+                Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft. Zur Ausübung Ihrer Rechte können Sie sich
+                jederzeit an uns wenden: technikhilfe.bruckmeier85@gmail.com
+              </p>
+              <h3>13. Beschwerderecht bei einer Aufsichtsbehörde</h3>
+              <p>
+                Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt, haben
+                Sie das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Zuständig ist in Bayern insbesondere:
+                Bayerisches Landesamt für Datenschutzaufsicht, Promenade 18, 91522 Ansbach, Deutschland.
+              </p>
+              <h3>14. Änderungen dieser Datenschutzerklärung</h3>
+              <p>
+                Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich unsere Website, unsere Kontaktmöglichkeiten
+                oder die rechtlichen Anforderungen ändern. Stand: Mai 2026
+              </p>
             </div>
           </details>
         </div>
@@ -690,12 +2543,168 @@
     </main>
 
     <footer class="site-footer">
-      <span>Technik Hilfe</span>
-      <span>IT Hilfe, Web & Geräte-Service in Bad Füssing</span>
-      <a href="#impressum">Impressum</a>
-      <a href="#datenschutz">Datenschutz</a>
+      <div class="footer-inner">
+        <a class="footer-brand" href="#start"><img src="logo.png" alt="" />Technik Hilfe</a>
+        <span>IT & Gerätehilfe in Bad Füssing und Umgebung</span>
+        <div class="footer-links"><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a></div>
+      </div>
     </footer>
 
-    <script src="script.js?v=blue-system-v5"></script>
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const body = document.body;
+        const boot = document.querySelector(".boot");
+        const count = document.querySelector(".boot-count");
+        const bar = document.querySelector(".boot-bar");
+        const progress = document.querySelector(".scroll-progress");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const calmMode = window.matchMedia("(max-width: 900px), (hover: none), (pointer: coarse)").matches;
+        const previewMode = new URLSearchParams(window.location.search).has("preview");
+
+        if (previewMode) {
+          count.textContent = "100%";
+          bar.style.width = "100%";
+          boot.classList.add("is-done");
+          body.classList.remove("is-loading");
+        } else {
+          const startTime = performance.now();
+          const bootDuration = reduceMotion ? 120 : 850;
+          function runBoot(now) {
+            const value = Math.min(100, Math.round(((now - startTime) / bootDuration) * 100));
+            count.textContent = `${value}%`;
+            bar.style.width = `${value}%`;
+            if (value < 100) {
+              requestAnimationFrame(runBoot);
+            } else {
+              setTimeout(() => {
+                boot.classList.add("is-done");
+                body.classList.remove("is-loading");
+              }, reduceMotion ? 0 : 120);
+            }
+          }
+          requestAnimationFrame(runBoot);
+        }
+
+        const reveals = [...document.querySelectorAll(".reveal")];
+        if (reduceMotion || previewMode) {
+          reveals.forEach((item) => item.classList.add("is-visible"));
+        } else {
+          const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: "0px 0px -5%" });
+          reveals.forEach((item, index) => {
+            item.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
+            revealObserver.observe(item);
+          });
+        }
+
+        const navLinks = [...document.querySelectorAll(".nav-links a")];
+        const sections = [...document.querySelectorAll("[data-section]")];
+        const sectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`));
+          });
+        }, { rootMargin: "-35% 0px -55% 0px" });
+        sections.forEach((section) => sectionObserver.observe(section));
+
+        function updateScroll() {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const ratio = max > 0 ? window.scrollY / max : 0;
+          progress.style.width = `${ratio * 100}%`;
+        }
+        updateScroll();
+        window.addEventListener("scroll", updateScroll, { passive: true });
+
+        document.querySelectorAll(".diagnostic-tabs button").forEach((button) => {
+          button.addEventListener("click", () => {
+            document.querySelectorAll(".diagnostic-tabs button").forEach((item) => item.classList.remove("is-active"));
+            button.classList.add("is-active");
+            document.querySelector(".diagnostic-device use").setAttribute("href", `#${button.dataset.icon}`);
+            document.querySelector(".diagnostic-output strong").textContent = button.dataset.output;
+          });
+        });
+
+        document.querySelectorAll(".footer-links a").forEach((link) => {
+          link.addEventListener("click", () => {
+            const target = document.querySelector(link.getAttribute("href"));
+            if (target) target.open = true;
+          });
+        });
+
+        if (calmMode || reduceMotion) return;
+
+        const stage = document.querySelector(".device-stage");
+        const monitor = document.querySelector(".monitor");
+        stage.addEventListener("pointermove", (event) => {
+          const rect = stage.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+          monitor.style.transform = `rotateY(${x * 12 - 8}deg) rotateX(${y * -10 + 4}deg) translate3d(${x * 8}px, ${y * 8}px, 0)`;
+        });
+        stage.addEventListener("pointerleave", () => {
+          monitor.style.transform = "rotateY(-8deg) rotateX(4deg)";
+        });
+
+        document.querySelectorAll(".service-card").forEach((card) => {
+          card.addEventListener("pointermove", (event) => {
+            const rect = card.getBoundingClientRect();
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(800px) rotateX(${y * -4}deg) rotateY(${x * 4}deg) translateY(-4px)`;
+          });
+          card.addEventListener("pointerleave", () => {
+            card.style.transform = "";
+          });
+        });
+
+        document.querySelectorAll(".magnetic").forEach((element) => {
+          element.addEventListener("pointermove", (event) => {
+            const rect = element.getBoundingClientRect();
+            const x = event.clientX - rect.left - rect.width / 2;
+            const y = event.clientY - rect.top - rect.height / 2;
+            element.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+          });
+          element.addEventListener("pointerleave", () => {
+            element.style.transform = "";
+          });
+        });
+
+        const dot = document.querySelector(".cursor-dot");
+        const ring = document.querySelector(".cursor-ring");
+        let mouseX = innerWidth / 2;
+        let mouseY = innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        window.addEventListener("pointermove", (event) => {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+          dot.style.opacity = "1";
+          ring.style.opacity = "1";
+          dot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+        });
+
+        document.querySelectorAll("a, button, summary, .service-card").forEach((item) => {
+          item.addEventListener("pointerenter", () => ring.classList.add("is-hovering"));
+          item.addEventListener("pointerleave", () => ring.classList.remove("is-hovering"));
+        });
+
+        function animateCursor() {
+          ringX += (mouseX - ringX) * 0.15;
+          ringY += (mouseY - ringY) * 0.15;
+          const size = ring.classList.contains("is-hovering") ? 48 : 30;
+          ring.style.transform = `translate(${ringX - size / 2}px, ${ringY - size / 2}px)`;
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+      })();
+    </script>
   </body>
 </html>
